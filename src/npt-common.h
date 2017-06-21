@@ -1,6 +1,6 @@
-#ifndef WINTEST_BIN_H
-#define WINTEST_BIN_H
+#ifndef NPT_COMMON_H
+#define NPT_COMMON_H
 
-void wintest_bin(void);
+void npt_common(void);
 
-#endif /* WINTEST_BIN_H */
+#endif /* NPT_COMMON_H */

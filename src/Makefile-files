@@ -1,60 +1,63 @@
 # -*- Makefile -*-
 
-wintest_sources =
-wintest_sources += %reldir%/wintest.c
-wintest_sources += %reldir%/wintest-bin.h
-wintest_sources += %reldir%/cmdline.c
-wintest_sources += %reldir%/cmdline.h
+npt_sources =
+npt_sources += %reldir%/npt-common.c
+npt_sources += %reldir%/npt-common.h
+npt_sources += %reldir%/npt-cmdline.c
+npt_sources += %reldir%/npt-cmdline.h
 
-bin_PROGRAMS += %reldir%/wintest
+bin_PROGRAMS += %reldir%/npt
 
-%canon_reldir%_wintest_CFLAGS =
-%canon_reldir%_wintest_CPPFLAGS =
-%canon_reldir%_wintest_DEPENDENCIES =
-%canon_reldir%_wintest_LDADD =
-%canon_reldir%_wintest_SOURCES =
+%canon_reldir%_npt_CFLAGS =
+%canon_reldir%_npt_CPPFLAGS =
+%canon_reldir%_npt_DEPENDENCIES =
+%canon_reldir%_npt_LDADD =
+%canon_reldir%_npt_SOURCES =
 
-%canon_reldir%_wintest_SOURCES += $(wintest_sources)
+%canon_reldir%_npt_SOURCES += $(npt_sources)
 
-%canon_reldir%_wintest_CPPFLAGS += -I$(top_srcdir)/libwintest
+%canon_reldir%_npt_CPPFLAGS += -I$(top_srcdir)/libnptone
 
-%canon_reldir%_wintest_DEPENDENCIES += libwintest0.la
-%canon_reldir%_wintest_LDADD        += libwintest0.la
+%canon_reldir%_npt_DEPENDENCIES += libnptone0.la
+%canon_reldir%_npt_LDADD        += libnptone0.la
+
+%canon_reldir%_npt_CPPFLAGS += '-DPROGNAME="npt"'
 
 if BUILD_FOR_WINDOWS
 
-AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/wintest$(EXEEXT)
+CLEANFILES += npt.log
 
-%canon_reldir%_wintest_CPPFLAGS += '-DPROGNAME="wintest"'
-%canon_reldir%_wintest_CFLAGS   += -mwindows
+AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/npt$(EXEEXT)
 
-%canon_reldir%_wintest_SOURCES += %reldir%/wintest-win.c
+%canon_reldir%_npt_CFLAGS   += -mwindows
 
-bin_PROGRAMS += %reldir%/wintest-cli
+%canon_reldir%_npt_SOURCES += %reldir%/npt-windows.c
 
-AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/wintest-cli$(EXEEXT)
+bin_PROGRAMS += %reldir%/npt-cli
 
-%canon_reldir%_wintest_cli_CFLAGS  =
-%canon_reldir%_wintest_cli_CPPFLAGS =
-%canon_reldir%_wintest_cli_DEPENDENCIES =
-%canon_reldir%_wintest_cli_LDADD =
-%canon_reldir%_wintest_cli_SOURCES =
+AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/npt-cli$(EXEEXT)
 
-%canon_reldir%_wintest_cli_CPPFLAGS += '-DPROGNAME="wintest-cli"'
-%canon_reldir%_wintest_cli_CPPFLAGS += -I$(top_srcdir)/libwintest
-%canon_reldir%_wintest_cli_CFLAGS   += -mconsole
+%canon_reldir%_npt_cli_CFLAGS  =
+%canon_reldir%_npt_cli_CPPFLAGS =
+%canon_reldir%_npt_cli_DEPENDENCIES =
+%canon_reldir%_npt_cli_LDADD =
+%canon_reldir%_npt_cli_SOURCES =
 
-%canon_reldir%_wintest_cli_SOURCES += $(wintest_sources)
-%canon_reldir%_wintest_cli_SOURCES += %reldir%/wintest-win.c
+CLEANFILES += npt-cli.log
 
-%canon_reldir%_wintest_cli_DEPENDENCIES += libwintest0.la
-%canon_reldir%_wintest_cli_LDADD        += libwintest0.la
+%canon_reldir%_npt_cli_CPPFLAGS += '-DPROGNAME="npt-cli"'
+%canon_reldir%_npt_cli_CPPFLAGS += -I$(top_srcdir)/libnptone
+%canon_reldir%_npt_cli_CFLAGS   += -mconsole
 
-CLEANFILES += wintest.log
+%canon_reldir%_npt_cli_SOURCES += $(npt_sources)
+%canon_reldir%_npt_cli_SOURCES += %reldir%/npt-windows.c
+
+%canon_reldir%_npt_cli_DEPENDENCIES += libnptone0.la
+%canon_reldir%_npt_cli_LDADD        += libnptone0.la
+
 
 else
 
-%canon_reldir%_wintest_CPPFLAGS += '-DPROGNAME="wintest"'
-%canon_reldir%_wintest_SOURCES += %reldir%/wintest-ix.c
+%canon_reldir%_npt_SOURCES += %reldir%/npt-posix.c
 
 endif

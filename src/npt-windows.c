@@ -2,8 +2,10 @@
 
 #include <stdio.h>
 
-#include "cmdline.h"
-#include "wintest-bin.h"
+#include "auto-config.h"
+
+#include "npt-cmdline.h"
+#include "npt-common.h"
 
 int WINAPI WinMain(HINSTANCE hInstance,
 		   HINSTANCE hPrevInstance,
@@ -20,7 +22,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
     return 10;
   }
 
-  FILE *logfile = fopen("wintest.log", "w");
+  FILE *logfile = fopen(PROGNAME ".log", "w");
 
   fprintf(logfile, "wintest: %d\n", argCount);
 
@@ -34,7 +36,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
       print_help();
       return 0;
     } else if (0 == wcscmp(L"--version", szArgList[i])) {
-      fprintf(logfile, "VERSION\n");
+      fprintf(logfile, PROGNAME " (" PACKAGE ") " VERSION "\n");
       print_version();
       return 0;
     } else {
@@ -45,7 +47,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
     }
   }
 
-  wintest_bin();
+  npt_common();
 
   LocalFree(szArgList);
   return 0;

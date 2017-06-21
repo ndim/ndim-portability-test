@@ -1,20 +1,24 @@
-#ifndef LIBWINTEST0_WINTEST_H
-#define LIBWINTEST0_WINTEST_H
+#ifndef LIBNPTONE0_NPTONE_H
+#define LIBNPTONE0_NPTONE_H
 
-#ifdef BULDING_LIBWINTEST0_DLL
-# define LIBWINTEST0_DLL __declspec(dllexport)
+#ifdef NPT_BUILD_FOR_WINDOWS
+# ifdef BULDING_LIBNPTONE0_DLL
+#  define LIBNPTONE0_DLL __declspec(dllexport)
+# else
+#  define LIBNPTONE0_DLL __declspec(dllimport)
+# endif
 #else
-# define LIBWINTEST0_DLL __declspec(dllimport)
+# define LIBNPTONE0_DLL
 #endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void LIBWINTEST0_DLL wintest_one(void);
+void LIBNPTONE0_DLL nptone_fun(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* LIBWINTEST0_WINTEST_H */
+#endif /* LIBNPTONE0_NPTONE_H */

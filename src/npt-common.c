@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include <wintest/wintest.h>
+#include <nptone/nptone.h>
 
-void wintest_bin(void)
+void npt_common(void)
 {
   printf("%s:%d: %s %s\n", __FILE__, __LINE__, __FUNCTION__, PROGNAME);
-  wintest_one();
+  nptone_fun();
 }

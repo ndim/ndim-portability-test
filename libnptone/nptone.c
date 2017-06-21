@@ -1,8 +1,8 @@
-#include "wintest/wintest.h"
+#include "nptone/nptone.h"
 
 #include <stdio.h>
 
-void wintest_one(void)
+void nptone_fun(void)
 {
-  printf("wintest_one\n");
+  printf("nptone_fun\n");
 }

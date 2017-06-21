@@ -1,6 +1,8 @@
 #include <stdio.h>
 
-#include "config.h"
+#include "auto-config.h"
+
+#include "npt-cmdline.h"
 
 void print_version(void)
 {

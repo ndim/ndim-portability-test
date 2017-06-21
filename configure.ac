@@ -8,14 +8,15 @@ AC_INIT([ndim windows posix portability test],
 	[ndim-portability-test],
 	[http://lauft.net/])
 AC_CONFIG_AUX_DIR([auto-aux])
-AC_CONFIG_HEADER([include/config.h])
-AC_CONFIG_SRCDIR([libnpttest/libnpttest.c])
+AC_CONFIG_HEADER([include/auto-config.h])
+AC_CONFIG_SRCDIR([libnptone/nptone.c])
 AC_CONFIG_MACRO_DIR([auto-m4])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign no-dist-gzip dist-xz readme-alpha tar-pax subdir-objects std-options])
 
 # Checks for programs.
 AM_PROG_AR
-LT_INIT([disable-static dlopen shared win32-dll win64-dll])
+# FIXME: win32-dll does not build DLL for 64bit Windows. WHY?
+LT_INIT([disable-static dlopen shared win32-dll])
 AC_PROG_CC
 AM_PROG_CC_C_O
 

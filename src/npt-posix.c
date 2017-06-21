@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "cmdline.h"
-#include "wintest-bin.h"
+#include "npt-cmdline.h"
+#include "npt-common.h"
 
 int main(const int argc, const char *argv[])
 {
@@ -33,7 +33,7 @@ int main(const int argc, const char *argv[])
 	fprintf(stderr, "%s: Unknown command line parameter: %s\n", prog, argv[1]);
       }
     } else {
-      wintest_bin();
+      npt_common();
     }
   }
   return 0;
