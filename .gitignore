@@ -1,0 +1,12 @@
+/aclocal.m4
+/auto-aux/
+/auto-m4/
+/autom4te.cache/
+/configure
+/include/config.h.in
+/ltmain.sh
+
+Makefile.in
+
+/_build-*/
+/_build/
