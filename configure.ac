@@ -57,6 +57,7 @@ Build configuration:
 
   host:    ${host}
   build:   ${build}
+  windows: ${build_for_windows}
 
   CC:      ${AR}
   CC:      ${CC}
