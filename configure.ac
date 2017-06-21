@@ -14,6 +14,7 @@ AC_CONFIG_MACRO_DIR([auto-m4])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign no-dist-gzip dist-xz readme-alpha tar-pax subdir-objects std-options])
 
 # Checks for programs.
+AC_PROG_SED
 AM_PROG_AR
 # FIXME: win32-dll does not build DLL for 64bit Windows. WHY?
 LT_INIT([disable-static dlopen shared win32-dll])
