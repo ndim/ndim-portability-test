@@ -2,21 +2,23 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([ndim windows ix program test],
+AC_INIT([ndim windows posix portability test],
 	[0.0],
 	[ndim@n-dimensional.de],
-	[ndim-wintest],
+	[ndim-portability-test],
 	[http://lauft.net/])
 AC_CONFIG_AUX_DIR([auto-aux])
 AC_CONFIG_HEADER([include/config.h])
-AC_CONFIG_SRCDIR([libwintest/libwintest.c])
+AC_CONFIG_SRCDIR([libnpttest/libnpttest.c])
 AC_CONFIG_MACRO_DIR([auto-m4])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign no-dist-gzip dist-xz readme-alpha tar-pax subdir-objects std-options])
 
 # Checks for programs.
 AM_PROG_AR
+LT_INIT([disable-static dlopen shared win32-dll win64-dll])
 AC_PROG_CC
-LT_INIT
+AM_PROG_CC_C_O
+
 AC_LANG_WERROR
 
 # Checks for libraries.

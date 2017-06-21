@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 #include "cmdline.h"
+#include "wintest-bin.h"
 
 int WINAPI WinMain(HINSTANCE hInstance,
 		   HINSTANCE hPrevInstance,

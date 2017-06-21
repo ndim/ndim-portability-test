@@ -2,33 +2,53 @@
 
 wintest_sources =
 wintest_sources += %reldir%/wintest.c
+wintest_sources += %reldir%/wintest-bin.h
 wintest_sources += %reldir%/cmdline.c
 wintest_sources += %reldir%/cmdline.h
 
 bin_PROGRAMS += %reldir%/wintest
-AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/wintest$(EXEEXT)
 
 %canon_reldir%_wintest_CFLAGS =
 %canon_reldir%_wintest_CPPFLAGS =
+%canon_reldir%_wintest_DEPENDENCIES =
+%canon_reldir%_wintest_LDADD =
 %canon_reldir%_wintest_SOURCES =
 
 %canon_reldir%_wintest_SOURCES += $(wintest_sources)
 
+%canon_reldir%_wintest_CPPFLAGS += -I$(top_srcdir)/libwintest
+
+%canon_reldir%_wintest_DEPENDENCIES += libwintest0.la
+%canon_reldir%_wintest_LDADD        += libwintest0.la
+
 if BUILD_FOR_WINDOWS
 
+AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/wintest$(EXEEXT)
+
 %canon_reldir%_wintest_CPPFLAGS += '-DPROGNAME="wintest"'
-%canon_reldir%_wintest_CFLAGS  += -mwindows
+%canon_reldir%_wintest_CFLAGS   += -mwindows
+
 %canon_reldir%_wintest_SOURCES += %reldir%/wintest-win.c
 
 bin_PROGRAMS += %reldir%/wintest-cli
 
-%canon_reldir%_wintest_cli_CPPFLAGS =
-%canon_reldir%_wintest_cli_CPPFLAGS += '-DPROGNAME="wintest-cli"'
+AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/wintest-cli$(EXEEXT)
+
 %canon_reldir%_wintest_cli_CFLAGS  =
-%canon_reldir%_wintest_cli_CFLAGS  += -mconsole
+%canon_reldir%_wintest_cli_CPPFLAGS =
+%canon_reldir%_wintest_cli_DEPENDENCIES =
+%canon_reldir%_wintest_cli_LDADD =
 %canon_reldir%_wintest_cli_SOURCES =
+
+%canon_reldir%_wintest_cli_CPPFLAGS += '-DPROGNAME="wintest-cli"'
+%canon_reldir%_wintest_cli_CPPFLAGS += -I$(top_srcdir)/libwintest
+%canon_reldir%_wintest_cli_CFLAGS   += -mconsole
+
 %canon_reldir%_wintest_cli_SOURCES += $(wintest_sources)
 %canon_reldir%_wintest_cli_SOURCES += %reldir%/wintest-win.c
+
+%canon_reldir%_wintest_cli_DEPENDENCIES += libwintest0.la
+%canon_reldir%_wintest_cli_LDADD        += libwintest0.la
 
 CLEANFILES += wintest.log
 

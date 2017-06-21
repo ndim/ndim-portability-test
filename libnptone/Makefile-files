@@ -1,0 +1,18 @@
+# -*- Makefile -*-
+
+lib_LTLIBRARIES += libwintest0.la
+
+apiincludedir = $(includedir)/wintest0/wintest
+
+apiinclude_HEADERS =
+apiinclude_HEADERS += %reldir%/wintest/wintest.h
+
+EXTRA_DIST += %reldir%/libwintest.sym
+
+libwintest0_la_LDFLAGS =
+libwintest0_la_LDFLAGS += -no-undefined
+libwintest0_la_LDFLAGS += -export-symbols $(srcdir)/%reldir%/libwintest.sym
+libwintest0_la_LDFLAGS += -version-info 0:0:0
+
+libwintest0_la_SOURCES =
+libwintest0_la_SOURCES += %reldir%/libwintest.c
