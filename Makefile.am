@@ -7,6 +7,7 @@ AM_DISTCHECK_CONFIGURE_FLAGS += --host=$(host) --build=$(build)
 
 AM_CPPFLAGS =
 AM_CFLAGS =
+BUILT_SOURCES =
 CLEANFILES =
 EXTRA_DIST =
 bin_PROGRAMS =
@@ -20,8 +21,10 @@ endif
 AM_CFLAGS += -std=c11
 AM_CFLAGS += -Wall
 AM_CFLAGS += -Wextra
+AM_CFLAGS += -Wpedantic
 AM_CFLAGS += -Werror
-AM_CFLAGS += -pedantic
+
+include build-helpers/package-version.mk
 
 include libnptone/Makefile-files
 include src/Makefile-files

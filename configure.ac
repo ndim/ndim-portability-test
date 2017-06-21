@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_INIT([ndim windows posix portability test],
-	[0.0],
+        [m4_esyscmd([./build-helpers/package-version.sh . version-stamp])],
 	[ndim@n-dimensional.de],
 	[ndim-portability-test],
 	[http://lauft.net/])
@@ -22,6 +22,10 @@ AM_PROG_CC_C_O
 
 AC_LANG_WERROR
 
+AC_ARG_VAR([GIT], [git revision control system])
+AC_PATH_PROG([GIT], [git], [no])
+AM_CONDITIONAL([HAVE_GIT], [test "x$GIT" != "xno"])
+
 # Checks for libraries.
 
 # Checks for header files.
@@ -38,6 +42,7 @@ case "${host_os}" in
 esac
 AM_CONDITIONAL([BUILD_FOR_WINDOWS], [test "x$build_for_windows" = "xyes"])
 
+AC_CONFIG_FILES([GNUmakefile])
 AC_CONFIG_FILES([Makefile])
 
 AC_OUTPUT
