@@ -29,6 +29,11 @@ AM_CFLAGS += -Wextra
 AM_CFLAGS += -Wpedantic
 AM_CFLAGS += -Werror
 
+# The GNUmakefile does not do anything useful in a tarball
+# environment, but configure.ac wants to create GNUmakefile from
+# GNUmakefile.in, so we ship that in the dist tarball.
+EXTRA_DIST += GNUmakefile.in
+
 include build-helpers/package-version.mk
 
 include libnptone/Makefile-files
