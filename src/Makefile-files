@@ -1,5 +1,11 @@
 # -*- Makefile -*-
 
+# The following four lines help debugging the reldir usage
+: reldir %reldir%/foo
+: canon_reldir %canon_reldir%_bar
+: C %C%/foo
+: D %D%_bar
+
 npt_sources =
 npt_sources += %reldir%/npt-common.c
 npt_sources += %reldir%/npt-common.h
@@ -16,8 +22,7 @@ bin_PROGRAMS += %reldir%/npt
 
 %canon_reldir%_npt_SOURCES += $(npt_sources)
 
-%canon_reldir%_npt_CPPFLAGS += -I$(top_srcdir)/libnptone
-
+%canon_reldir%_npt_CPPFLAGS     += -I$(top_srcdir)/libnptone
 %canon_reldir%_npt_DEPENDENCIES += libnptone0.la
 %canon_reldir%_npt_LDADD        += libnptone0.la
 
@@ -25,13 +30,13 @@ bin_PROGRAMS += %reldir%/npt
 
 if BUILD_FOR_WINDOWS
 
-CLEANFILES += npt.log
-
 AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/npt$(EXEEXT)
 
 %canon_reldir%_npt_CFLAGS   += -mwindows
 
 %canon_reldir%_npt_SOURCES += %reldir%/npt-windows.c
+
+CLEANFILES += npt.log
 
 bin_PROGRAMS += %reldir%/npt-cli
 
@@ -43,18 +48,17 @@ AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/npt-cli$(EXEEXT)
 %canon_reldir%_npt_cli_LDADD =
 %canon_reldir%_npt_cli_SOURCES =
 
-CLEANFILES += npt-cli.log
-
 %canon_reldir%_npt_cli_CPPFLAGS += '-DPROGNAME="npt-cli"'
-%canon_reldir%_npt_cli_CPPFLAGS += -I$(top_srcdir)/libnptone
 %canon_reldir%_npt_cli_CFLAGS   += -mconsole
 
 %canon_reldir%_npt_cli_SOURCES += $(npt_sources)
 %canon_reldir%_npt_cli_SOURCES += %reldir%/npt-windows.c
 
+%canon_reldir%_npt_cli_CPPFLAGS     += -I$(top_srcdir)/libnptone
 %canon_reldir%_npt_cli_DEPENDENCIES += libnptone0.la
 %canon_reldir%_npt_cli_LDADD        += libnptone0.la
 
+CLEANFILES += npt-cli.log
 
 else
 
