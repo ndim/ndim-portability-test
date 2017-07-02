@@ -25,3 +25,26 @@ libnptone0_la_LDFLAGS += -version-info 0:0:0
 
 libnptone0_la_SOURCES =
 libnptone0_la_SOURCES += %reldir%/nptone.c
+
+SUBSTITUTIONS =
+SUBSTITUTIONS += -e 's,[@]exec_prefix@,$(exec_prefix),g'
+SUBSTITUTIONS += -e 's,[@]prefix@,$(prefix),g'
+SUBSTITUTIONS += -e 's,[@]libdir@,$(libdir),g'
+SUBSTITUTIONS += -e 's,[@]includedir@,$(includedir),g'
+SUBSTITUTIONS += -e 's,[@]PACKAGE_NAME@,$(PACKAGE_NAME),g'
+SUBSTITUTIONS += -e 's,[@]PACKAGE_URL@,$(PACKAGE_URL),g'
+SUBSTITUTIONS += -e 's,[@]VERSION@,$(VERSION),g'
+
+SUBSTITUTE = $(SED) $(SUBSTITUTIONS)
+
+CLEANFILES  += libnptone0-uninstalled.pc
+noinst_DATA += libnptone0-uninstalled.pc
+EXTRA_DIST  += %reldir%/libnptone-uninstalled.pc.in
+libnptone0-uninstalled.pc: $(srcdir)/%reldir%/libnptone.pc.in
+	$(SUBSTITUTE) $(srcdir)/%reldir%/libnptone-uninstalled.pc.in > libnptone0-uninstalled.pc
+
+CLEANFILES            += libnptone0.pc
+nodist_pkgconfig_DATA += libnptone0.pc
+EXTRA_DIST            += %reldir%/libnptone.pc.in
+libnptone0.pc: $(srcdir)/%reldir%/libnptone.pc.in
+	$(SUBSTITUTE) $(srcdir)/%reldir%/libnptone.pc.in > libnptone0.pc

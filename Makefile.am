@@ -5,6 +5,8 @@ AM_INSTALLCHECK_STD_OPTIONS_EXEMPT =
 AM_DISTCHECK_CONFIGURE_FLAGS =
 AM_DISTCHECK_CONFIGURE_FLAGS += --host=$(host) --build=$(build)
 
+pkgconfigdir = $(libdir)/pkgconfig
+
 AM_CPPFLAGS =
 AM_CFLAGS =
 BUILT_SOURCES =
@@ -12,6 +14,9 @@ CLEANFILES =
 EXTRA_DIST =
 bin_PROGRAMS =
 lib_LTLIBRARIES =
+noinst_DATA =
+nodist_pkgconfig_DATA =
+pkgconfig_DATA =
 
 if BUILD_FOR_WINDOWS
 AM_CFLAGS += -municode

@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+VERSION=@VERSION@
+
+Name: libnptone
+Description: @PACKAGE_NAME@ library one
+URL: @PACKAGE_URL@
+Version: @VERSION@
+Libs: -L${libdir} -lnptone
+Cflags: -I${includedir}/nptone0
