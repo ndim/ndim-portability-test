@@ -31,7 +31,13 @@ AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/npt$(EXEEXT)
 %canon_reldir%_npt_SOURCES         += %reldir%/npt-windows-gui.c
 
 CLEANFILES                              += npt-console.log
-noinst_PROGRAMS                         += %reldir%/npt-console
+
+# In a perfect world, we would noinst_ npt-console.exe, but as Wine
+# does not want to run a PE named *.com, we install the
+# npt-console.exe here.
+
+# noinst_PROGRAMS                       += %reldir%/npt-console
+bin_PROGRAMS                            += %reldir%/npt-console
 
 AM_INSTALLCHECK_STD_OPTIONS_EXEMPT      += %reldir%/npt-console$(EXEEXT)
 
