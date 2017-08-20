@@ -3,8 +3,8 @@
 # The following four lines help debugging the reldir usage
 : reldir %reldir%/foo
 : canon_reldir %canon_reldir%_bar
-: C %C%/foo
-: D %D%_bar
+: D %D%/bar
+: C %C%_foo
 
 npt_sources =
 npt_sources += %reldir%/npt-common.c
@@ -12,59 +12,5 @@ npt_sources += %reldir%/npt-common.h
 npt_sources += %reldir%/npt-cmdline.c
 npt_sources += %reldir%/npt-cmdline.h
 
-bin_PROGRAMS                       += %reldir%/npt
-
-%canon_reldir%_npt_CFLAGS           =
-%canon_reldir%_npt_CPPFLAGS         =
-%canon_reldir%_npt_DEPENDENCIES     =
-%canon_reldir%_npt_LDADD            =
-%canon_reldir%_npt_SOURCES          =
-
-%canon_reldir%_npt_SOURCES         += $(npt_sources)
-
-%canon_reldir%_npt_CPPFLAGS        += -I$(top_srcdir)/libnptone
-%canon_reldir%_npt_DEPENDENCIES    += libnptone0.la
-%canon_reldir%_npt_LDADD           += libnptone0.la
-
-%canon_reldir%_npt_CPPFLAGS        += '-DPROGNAME="npt"'
-
-if BUILD_FOR_WINDOWS
-
-CLEANFILES                         += npt.log
-AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/npt$(EXEEXT)
-%canon_reldir%_npt_CFLAGS          += -mwindows
-%canon_reldir%_npt_SOURCES         += %reldir%/npt-windows.c
-
-CLEANFILES                              += npt-console.log
-noinst_PROGRAMS                         += %reldir%/npt-console
-
-AM_INSTALLCHECK_STD_OPTIONS_EXEMPT      += %reldir%/npt-console$(EXEEXT)
-
-%canon_reldir%_npt_console_CFLAGS        =
-%canon_reldir%_npt_console_CPPFLAGS      =
-%canon_reldir%_npt_console_DEPENDENCIES  =
-%canon_reldir%_npt_console_LDADD         =
-%canon_reldir%_npt_console_SOURCES       =
-
-%canon_reldir%_npt_console_CPPFLAGS     += '-DPROGNAME="npt-console"'
-%canon_reldir%_npt_console_CFLAGS       += -mconsole
-
-%canon_reldir%_npt_console_SOURCES      += $(npt_sources)
-%canon_reldir%_npt_console_SOURCES      += %reldir%/npt-windows.c
-
-%canon_reldir%_npt_console_CPPFLAGS     += -I$(top_srcdir)/libnptone
-%canon_reldir%_npt_console_DEPENDENCIES += libnptone0.la
-%canon_reldir%_npt_console_LDADD        += libnptone0.la
-
-CLEANFILES                         += %reldir%/npt.com
-AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/npt.com
-bin_SCRIPTS                        += %reldir%/npt.com
-
-%reldir%/npt.com: %reldir%/npt-console$(EXEEXT)
-	cp $^ $@
-
-else
-
-%canon_reldir%_npt_SOURCES         += %reldir%/npt-posix.c
-
-endif
+include %reldir%/posix/Makefile-files
+include %reldir%/windows/Makefile-files

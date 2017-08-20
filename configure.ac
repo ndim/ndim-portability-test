@@ -41,7 +41,10 @@ case "${host_os}" in
 	build_for_windows=yes
 	;;
 esac
-AM_CONDITIONAL([BUILD_FOR_WINDOWS], [test "x$build_for_windows" = "xyes"])
+AM_CONDITIONAL([BUILD_FOR_WINDOWS],
+               [test "x$build_for_windows" = "xyes"])
+AM_CONDITIONAL([BUILD_FOR_POSIX],
+               [test "x$build_for_windows" != "xyes"])
 
 AC_CONFIG_FILES([GNUmakefile])
 AC_CONFIG_FILES([Makefile])

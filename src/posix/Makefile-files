@@ -1,0 +1,30 @@
+# -*- Makefile -*-
+
+# The following four lines help debugging the reldir usage
+: reldir %reldir%/foo
+: canon_reldir %canon_reldir%_bar
+: D %D%/bar
+: C %C%_foo
+
+if BUILD_FOR_POSIX
+
+bin_PROGRAMS                       += %reldir%/npt
+
+%canon_reldir%_npt_CFLAGS           =
+%canon_reldir%_npt_CPPFLAGS         =
+%canon_reldir%_npt_DEPENDENCIES     =
+%canon_reldir%_npt_LDADD            =
+%canon_reldir%_npt_SOURCES          =
+
+%canon_reldir%_npt_SOURCES         += $(npt_sources)
+%canon_reldir%_npt_CPPFLAGS        += -I$(top_srcdir)/src
+
+%canon_reldir%_npt_CPPFLAGS        += -I$(top_srcdir)/libnptone
+%canon_reldir%_npt_DEPENDENCIES    += libnptone0.la
+%canon_reldir%_npt_LDADD           += libnptone0.la
+
+%canon_reldir%_npt_CPPFLAGS        += '-DPROGNAME="npt"'
+
+%canon_reldir%_npt_SOURCES         += %reldir%/npt-posix.c
+
+endif

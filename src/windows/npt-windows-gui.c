@@ -17,14 +17,14 @@ int WINAPI WinMain(HINSTANCE hInstance,
   LPWSTR *szArgList = CommandLineToArgvW(lpwCmdLine, &argCount);
   if (szArgList == NULL) {
     MessageBox(NULL,
-	       TEXT("wintest: Unable to parse command line"),
+	       TEXT(PROGNAME ": Unable to parse command line"),
 	       TEXT("Error"), MB_OK);
     return 10;
   }
 
   FILE *logfile = fopen(PROGNAME ".log", "w");
 
-  fprintf(logfile, "wintest: %d\n", argCount);
+  fprintf(logfile, PROGNAME ": %d\n", argCount);
 
   for (int i=1; i<argCount; ++i) {
     wprintf(L"ARG %d: '%s'\n", i, szArgList[i]);
@@ -41,7 +41,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
       return 0;
     } else {
       MessageBox(NULL,
-		 TEXT("wintest: Unhandled command line parameter"),
+		 TEXT(PROGNAME ": Unhandled command line parameter"),
 		 TEXT("Error"), MB_OK);
       return 11;
     }

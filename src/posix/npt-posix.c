@@ -10,7 +10,7 @@
 int main(const int argc, const char *argv[])
 {
   if (argc < 1) {
-    fputs("wintest: error parsing command line (argc < 1)\n", stderr);
+    fputs(PROGNAME ": error parsing command line (argc < 1)\n", stderr);
     exit(EXIT_FAILURE);
   } else {
 
