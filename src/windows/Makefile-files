@@ -59,4 +59,13 @@ bin_SCRIPTS                        += %reldir%/npt.com
 %reldir%/npt.com: %reldir%/npt-console$(EXEEXT)
 	cp $^ $@
 
+bin_PROGRAMS                       += %D%/npt-exetype
+AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %D%/npt-exetype
+%C%_npt_exetype_CPPFLAGS            =
+%C%_npt_exetype_CFLAGS              =
+%C%_npt_exetype_CPPFLAGS           += -DPROGNAME='"npt-exetype"'
+%C%_npt_exetype_CPPFLAGS           += -DPROGNAMEW='L"npt-exetype"'
+%C%_npt_exetype_CFLAGS             += -mconsole
+%C%_npt_exetype_SOURCES             = %D%/npt-exetype.c
+
 endif
