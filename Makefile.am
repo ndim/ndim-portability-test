@@ -13,8 +13,10 @@ BUILT_SOURCES =
 CLEANFILES =
 EXTRA_DIST =
 bin_PROGRAMS =
+bin_SCRIPTS =
 lib_LTLIBRARIES =
 noinst_DATA =
+noinst_PROGRAMS =
 nodist_pkgconfig_DATA =
 pkgconfig_DATA =
 
