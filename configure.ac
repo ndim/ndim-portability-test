@@ -60,7 +60,7 @@ Build configuration:
   build:   ${build}
   windows: ${build_for_windows}
 
-  CC:      ${AR}
+  AR:      ${AR}
   CC:      ${CC}
   CPP:     ${CPP}
   DLLTOOL: ${DLLTOOL}
