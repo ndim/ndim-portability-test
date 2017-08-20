@@ -36,7 +36,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
       print_help();
       return 0;
     } else if (0 == wcscmp(L"--version", szArgList[i])) {
-      fprintf(logfile, PROGNAME " (" PACKAGE ") " VERSION "\n");
+      fprintf(logfile, PROGNAME " (" PACKAGE_TARNAME ") " PACKAGE_VERSION "\n");
       print_version();
       return 0;
     } else {

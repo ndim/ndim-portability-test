@@ -7,9 +7,10 @@
 void print_version(void)
 {
   fprintf(stdout,
-	  "wintest (%s) %s\n"
+	  "%s (%s) %s\n"
 	  "Copyright (C) 2017 TBD\n",
-	  PACKAGE, VERSION);
+	  PROGNAME,
+	  PACKAGE_TARNAME, PACKAGE_VERSION);
 }
 
 void print_help(void)
