@@ -8,62 +8,79 @@
 
 if BUILD_FOR_WINDOWS
 
-bin_PROGRAMS                       += %reldir%/npt
 
-%canon_reldir%_npt_CFLAGS           =
-%canon_reldir%_npt_CPPFLAGS         =
-%canon_reldir%_npt_DEPENDENCIES     =
-%canon_reldir%_npt_LDADD            =
-%canon_reldir%_npt_SOURCES          =
+########################################################################
+# Windows GUI program npt.exe
 
-%canon_reldir%_npt_SOURCES         += $(npt_sources)
-%canon_reldir%_npt_CPPFLAGS        += -I$(top_srcdir)/src
-
-%canon_reldir%_npt_CPPFLAGS        += -I$(top_srcdir)/libnptone
-%canon_reldir%_npt_DEPENDENCIES    += libnptone0.la
-%canon_reldir%_npt_LDADD           += libnptone0.la
-
-%canon_reldir%_npt_CPPFLAGS        += '-DPROGNAME="npt"'
-
+bin_PROGRAMS                       += %D%/npt
+AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %D%/npt$(EXEEXT)
 CLEANFILES                         += npt.log
-AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/npt$(EXEEXT)
-%canon_reldir%_npt_CFLAGS          += -mwindows
-%canon_reldir%_npt_SOURCES         += %reldir%/npt-windows-gui.c
 
-CLEANFILES                              += npt-console.log
+%C%_npt_CFLAGS                      =
+%C%_npt_CPPFLAGS                    =
+%C%_npt_DEPENDENCIES                =
+%C%_npt_LDADD                       =
+%C%_npt_SOURCES                     =
+
+%C%_npt_CPPFLAGS                   += '-DPROGNAME="npt"'
+%C%_npt_CFLAGS                     += -mwindows
+
+%C%_npt_CPPFLAGS                   += -I$(top_srcdir)/src
+%C%_npt_SOURCES                    += $(npt_sources)
+%C%_npt_SOURCES                    += %D%/npt-windows-gui.c
+
+%C%_npt_CPPFLAGS                   += -I$(top_srcdir)/libnptone
+%C%_npt_DEPENDENCIES               += libnptone0.la
+%C%_npt_LDADD                      += libnptone0.la
+
+
+########################################################################
+# Windows console program npt-console.exe
 
 # In a perfect world, we would noinst_ npt-console.exe, but as Wine
 # does not want to run a PE named *.com, we install the
 # npt-console.exe here.
 
-# noinst_PROGRAMS                       += %reldir%/npt-console
-bin_PROGRAMS                            += %reldir%/npt-console
+# noinst_PROGRAMS                  += %D%/npt-console
+bin_PROGRAMS                       += %D%/npt-console
+AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %D%/npt-console$(EXEEXT)
+CLEANFILES                         += npt-console.log
 
-AM_INSTALLCHECK_STD_OPTIONS_EXEMPT      += %reldir%/npt-console$(EXEEXT)
+%C%_npt_console_CFLAGS              =
+%C%_npt_console_CPPFLAGS            =
+%C%_npt_console_DEPENDENCIES        =
+%C%_npt_console_LDADD               =
+%C%_npt_console_SOURCES             =
 
-%canon_reldir%_npt_console_CFLAGS        =
-%canon_reldir%_npt_console_CPPFLAGS      =
-%canon_reldir%_npt_console_DEPENDENCIES  =
-%canon_reldir%_npt_console_LDADD         =
-%canon_reldir%_npt_console_SOURCES       =
+%C%_npt_console_CPPFLAGS           += '-DPROGNAME="npt-console"'
+%C%_npt_console_CFLAGS             += -mconsole
 
-%canon_reldir%_npt_console_CPPFLAGS     += '-DPROGNAME="npt-console"'
-%canon_reldir%_npt_console_CFLAGS       += -mconsole
+%C%_npt_console_CPPFLAGS           += -I$(top_srcdir)/src
+%C%_npt_console_SOURCES            += $(npt_sources)
+%C%_npt_console_SOURCES            += %D%/npt-windows-console.c
 
-%canon_reldir%_npt_console_SOURCES      += $(npt_sources)
-%canon_reldir%_npt_console_CPPFLAGS     += -I$(top_srcdir)/src
-%canon_reldir%_npt_console_SOURCES      += %reldir%/npt-windows-console.c
+%C%_npt_console_CPPFLAGS           += -I$(top_srcdir)/libnptone
+%C%_npt_console_DEPENDENCIES       += libnptone0.la
+%C%_npt_console_LDADD              += libnptone0.la
 
-%canon_reldir%_npt_console_CPPFLAGS     += -I$(top_srcdir)/libnptone
-%canon_reldir%_npt_console_DEPENDENCIES += libnptone0.la
-%canon_reldir%_npt_console_LDADD        += libnptone0.la
 
-CLEANFILES                         += %reldir%/npt.com
-AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %reldir%/npt.com
-bin_SCRIPTS                        += %reldir%/npt.com
+########################################################################
+# Copy npt-console.exe to npt.com
 
-%reldir%/npt.com: %reldir%/npt-console$(EXEEXT)
+# This emulates what devenv.{com,exe} from MS Visual C++ does with GUI
+# and console interface.  Even if wine-2.0 does not run PEs called
+# *.com.
+
+CLEANFILES                         += %D%/npt.com
+AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %D%/npt.com
+bin_SCRIPTS                        += %D%/npt.com
+
+%D%/npt.com: %D%/npt-console$(EXEEXT)
 	cp $^ $@
+
+
+########################################################################
+# npt-exetype.exe - determine type of executable file
 
 bin_PROGRAMS                       += %D%/npt-exetype
 AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %D%/npt-exetype
@@ -73,5 +90,6 @@ AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %D%/npt-exetype
 %C%_npt_exetype_CPPFLAGS           += -DPROGNAMEW='L"npt-exetype"'
 %C%_npt_exetype_CFLAGS             += -mconsole
 %C%_npt_exetype_SOURCES             = %D%/npt-exetype.c
+
 
 endif
