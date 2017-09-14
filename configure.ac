@@ -4,9 +4,9 @@
 AC_PREREQ([2.69])
 AC_INIT([ndim windows posix portability test],
         [m4_esyscmd([./build-helpers/package-version.sh . version-stamp])],
-	[ndim@n-dimensional.de],
-	[ndim-portability-test],
-	[http://lauft.net/])
+        [ndim@n-dimensional.de],
+        [ndim-portability-test],
+        [http://lauft.net/])
 AC_CONFIG_AUX_DIR([auto-aux])
 AC_CONFIG_HEADER([include/auto-config.h])
 AC_CONFIG_SRCDIR([libnptone/nptone.c])
@@ -46,8 +46,8 @@ dnl ADD_FLAGS([LDFLAGS],  [-Wl,-blubb])
 build_for_windows=no
 case "${host_os}" in
      cygwin*|mingw*)
-	build_for_windows=yes
-	;;
+        build_for_windows=yes
+        ;;
 esac
 AM_CONDITIONAL([BUILD_FOR_WINDOWS],
                [test "x$build_for_windows" = "xyes"])
