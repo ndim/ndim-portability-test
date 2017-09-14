@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void nptone_fun(void)
+void LIBNPTONE0_DLL nptone_fun(void)
 {
   printf("nptone_fun\n");
 }

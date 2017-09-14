@@ -3,14 +3,15 @@
 #include <stdio.h>
 
 #include "auto-config.h"
+#include "compiler-compatibility.h"
 
 #include "npt-cmdline.h"
 #include "npt-common.h"
 
-int WINAPI WinMain(HINSTANCE hInstance,
-		   HINSTANCE hPrevInstance,
-		   LPTSTR    lpCmdLine,
-		   int       cmdShow)
+int WINAPI wWinMain(HINSTANCE UP(hInstance),
+		    HINSTANCE UP(hPrevInstance),
+		    LPWSTR    UP(lpCmdLine),
+		    int       UP(cmdShow))
 {
   int argCount;
   LPCWSTR lpwCmdLine = GetCommandLineW();

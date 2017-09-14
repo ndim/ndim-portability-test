@@ -4,6 +4,7 @@
 #include <ltdl.h>
 
 #include <assert.h>
+#include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -30,7 +31,7 @@ void npttwo_done(void)
   ;
 
 
-void npttwo_fun(void)
+void LIBNPTTWO0_DLL npttwo_fun(void)
 {
   printf("npttwo_fun\n");
   assert(plugins);
@@ -42,7 +43,10 @@ foreach_func(const char *filename, lt_ptr data __attribute__((unused)))
 {
   printf("  * npttwo foreach_func %s\n", filename);
 
-  lt_dlhandle lh = lt_dlopenext(filename);
+  lt_dlhandle lh = lt_dlopen(filename);
+  if (lh == 0) {
+    lh = lt_dlopenext(filename);
+  }
   if (!lh) {
     printf("      * cannot load %s: %s\n", filename, lt_dlerror());
     return 1;
@@ -69,9 +73,11 @@ foreach_func(const char *filename, lt_ptr data __attribute__((unused)))
   printf("      * found plugin '%s'\n", plugin->name);
 
   if (mem_idx <= used_idx) {
-    size_t new_mem_idx = mem_idx + REALLOC_INCREMENT;
-    printf("      * realloc from %zd to %zd plugins\n", mem_idx, new_mem_idx);
-    npttwo_plugin **new_plugins = realloc(plugins, new_mem_idx * sizeof(npttwo_plugin *));
+    const size_t new_mem_idx = mem_idx + REALLOC_INCREMENT;
+    printf("      * realloc from %zu to %zu plugins\n",
+	   mem_idx, new_mem_idx);
+    npttwo_plugin **new_plugins =
+      realloc(plugins, new_mem_idx * sizeof(npttwo_plugin *));
     assert(new_plugins);
     plugins = new_plugins;
     mem_idx = new_mem_idx;
@@ -100,7 +106,7 @@ void npttwo_init(void)
 
   printf("Plugin list:\n");
   for (size_t i=0; i<used_idx; i++) {
-    printf("  %zd. %s\n", i+1, plugins[i]->name);
+    printf("  %zu. %s\n", i+1, plugins[i]->name);
   }
 }
 
@@ -120,21 +126,21 @@ void npttwo_done(void)
 }
 
 
-void npttwo_func1(void)
+void LIBNPTTWO0_DLL npttwo_func1(void)
 {
   printf("Plugin list:\n");
   for (size_t i=0; i<used_idx; i++) {
-    printf("%zd. %s\n", i+1, plugins[i]->name);
+    printf("%zu. %s\n", i+1, plugins[i]->name);
     plugins[i]->func1();
   }
 }
 
 
-void npttwo_func2(void)
+void LIBNPTTWO0_DLL npttwo_func2(void)
 {
   printf("Plugin list:\n");
   for (size_t i=0; i<used_idx; i++) {
-    printf("%zd. %s\n", i+1, plugins[i]->name);
+    printf("%zu. %s\n", i+1, plugins[i]->name);
     const int v = 5;
     const int ret = plugins[i]->func2(v);
     printf("    %d = func2(%d)\n", ret, v);
@@ -142,19 +148,19 @@ void npttwo_func2(void)
 }
 
 
-void npttwo_func3(void)
+void LIBNPTTWO0_DLL npttwo_func3(void)
 {
   printf("Plugin list:\n");
   for (size_t i=0; i<used_idx; i++) {
-    printf("%zd. %s\n", i+1, plugins[i]->name);
+    printf("%zu. %s\n", i+1, plugins[i]->name);
     const int v = 2;
-    const int ret = plugins[i]->func3(npttwo_call_from_plugin(v));
+    const int ret = plugins[i]->func3(v);
     printf("    %d = func3(%d)\n", ret, v);
   }
 }
 
 
-int npttwo_call_from_plugin(int value)
+int LIBNPTTWO0_DLL npttwo_call_from_plugin(int value)
 {
-  return (value+1);
+  return (value+5);
 }

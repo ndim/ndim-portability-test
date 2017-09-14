@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "npttwo/npttwo.h"
 #include "npttwo/plugin-api.h"
 
 static
@@ -12,14 +13,15 @@ static
 int b_func2(int x)
 {
   printf("plugin b func2\n");
-  return x*x*x;
+  return x*x;
 }
 
 static
 int b_func3(int x)
 {
   printf("plugin b func3\n");
-  return x*x*x;
+  const int y = npttwo_call_from_plugin(x);
+  return y*y*y;
 }
 
 npttwo_plugin plugin = {

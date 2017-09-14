@@ -2,12 +2,13 @@
 #include <string.h>
 
 #include "auto-config.h"
+#include "compiler-compatibility.h"
 
 #include "npt-cmdline.h"
 #include "npt-common.h"
 
 
-int main(int argc, char *argv[])
+int wmain(int argc, char *argv[])
 {
   for (int i=1; i<argc; ++i) {
     printf("ARG %d: '%s'\n", i, argv[i]);

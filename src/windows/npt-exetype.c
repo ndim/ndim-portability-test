@@ -1,9 +1,11 @@
+#include "compiler-compatibility.h"
+
 #include <windows.h>
 
 #include <stdio.h>
 
 
-const LPWSTR type2str(DWORD BinaryType)
+LPWSTR type2str(DWORD BinaryType)
 {
   switch (BinaryType) {
   case SCS_DOS_BINARY:   return L"DOS";
@@ -17,10 +19,10 @@ const LPWSTR type2str(DWORD BinaryType)
 }
 
 
-int WINAPI WinMain(HINSTANCE hInstance,
-		   HINSTANCE hPrevInstance,
-		   LPTSTR    lpCmdLine,
-		   int       cmdShow)
+int WINAPI wWinMain(HINSTANCE UP(hInstance),
+		    HINSTANCE UP(hPrevInstance),
+		    LPWSTR    UP(lpCmdLine),
+		    int       UP(cmdShow))
 {
   int argc;
   LPCWSTR lpwCmdLine = GetCommandLineW();

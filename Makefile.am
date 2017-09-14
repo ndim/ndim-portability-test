@@ -21,6 +21,7 @@ pkgconfig_DATA =
 if BUILD_FOR_WINDOWS
 ADD_CFLAGS   += -municode
 ADD_CPPFLAGS += -DNPT_BUILD_FOR_WINDOWS
+ADD_CFLAGS   += -Wno-pedantic-ms-format
 endif
 
 # The GNUmakefile does not do anything useful in a tarball
