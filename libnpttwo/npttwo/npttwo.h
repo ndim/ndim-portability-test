@@ -15,9 +15,14 @@
 extern "C" {
 #endif
 
-void LIBNPTTWO0_DLL npttwo_fun(void);
-void LIBNPTTWO0_DLL npttwo_func1(void);
-void LIBNPTTWO0_DLL npttwo_func2(void);
+  /* library API for library users */
+  void LIBNPTTWO0_DLL npttwo_fun(void);
+  void LIBNPTTWO0_DLL npttwo_func1(void);
+  void LIBNPTTWO0_DLL npttwo_func2(void);
+  void LIBNPTTWO0_DLL npttwo_func3(void);
+
+  /* library API for use by plugins internal to library */
+  int LIBNPTTWO0_DLL npttwo_call_from_plugin(int value);
 
 #ifdef __cplusplus
 }

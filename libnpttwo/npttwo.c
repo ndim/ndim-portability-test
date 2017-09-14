@@ -122,7 +122,26 @@ void npttwo_func2(void)
   printf("Plugin list:\n");
   for (size_t i=0; i<used_idx; i++) {
     printf("%d. %s\n", i+1, plugins[i]->name);
-    const int ret = plugins[i]->func2(5);
-    printf("    %d = func2(%d)\n", ret, 5);
+    const int v = 5;
+    const int ret = plugins[i]->func2(v);
+    printf("    %d = func2(%d)\n", ret, v);
   }
+}
+
+
+void npttwo_func3(void)
+{
+  printf("Plugin list:\n");
+  for (size_t i=0; i<used_idx; i++) {
+    printf("%d. %s\n", i+1, plugins[i]->name);
+    const int v = 2;
+    const int ret = plugins[i]->func3(npttwo_call_from_plugin(v));
+    printf("    %d = func3(%d)\n", ret, v);
+  }
+}
+
+
+int npttwo_call_from_plugin(int value)
+{
+  return (value+1);
 }

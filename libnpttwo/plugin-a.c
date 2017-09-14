@@ -15,8 +15,16 @@ int a_func2(int x)
   return x*x;
 }
 
+static
+int a_func3(int x)
+{
+  printf("plugin a func3\n");
+  return x*x*x;
+}
+
 npttwo_plugin plugin = {
   "Plugin A",
   a_func1,
-  a_func2
+  a_func2,
+  a_func3
 };

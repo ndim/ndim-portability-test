@@ -12,11 +12,19 @@ static
 int b_func2(int x)
 {
   printf("plugin b func2\n");
-  return x*x;
+  return x*x*x;
+}
+
+static
+int b_func3(int x)
+{
+  printf("plugin b func3\n");
+  return x*x*x;
 }
 
 npttwo_plugin plugin = {
   "Plugin B",
   b_func1,
-  b_func2
+  b_func2,
+  b_func3
 };

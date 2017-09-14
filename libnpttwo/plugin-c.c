@@ -15,8 +15,16 @@ int c_func2(int x)
   return x*x;
 }
 
+static
+int c_func3(int x)
+{
+  printf("plugin c func3\n");
+  return x*x*x;
+}
+
 npttwo_plugin plugin = {
   "Plugin C",
   c_func1,
-  c_func2
+  c_func2,
+  c_func3
 };

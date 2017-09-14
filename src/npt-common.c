@@ -9,4 +9,5 @@ void npt_common(void)
 
   npttwo_func1();
   npttwo_func2();
+  npttwo_func3();
 }
