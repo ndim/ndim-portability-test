@@ -20,6 +20,8 @@ libnpttwo0_la_LDFLAGS += -no-undefined
 
 libnpttwo0_la_LDFLAGS += -export-symbols $(srcdir)/%reldir%/libnpttwo.sym
 EXTRA_DIST            +=                           %reldir%/libnpttwo.sym
+libnpttwo0_la_DEPENDENCIES  =
+libnpttwo0_la_DEPENDENCIES +=                      %reldir%/libnpttwo.sym
 
 libnpttwo0_la_LDFLAGS += -version-info 0:0:0
 

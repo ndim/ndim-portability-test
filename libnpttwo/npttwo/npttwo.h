@@ -16,6 +16,8 @@ extern "C" {
 #endif
 
 void LIBNPTTWO0_DLL npttwo_fun(void);
+void LIBNPTTWO0_DLL npttwo_func1(void);
+void LIBNPTTWO0_DLL npttwo_func2(void);
 
 #ifdef __cplusplus
 }

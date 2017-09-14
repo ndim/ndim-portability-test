@@ -20,6 +20,8 @@ libnptone0_la_LDFLAGS += -no-undefined
 
 libnptone0_la_LDFLAGS += -export-symbols $(srcdir)/%reldir%/libnptone.sym
 EXTRA_DIST            +=                           %reldir%/libnptone.sym
+libnptone0_la_DEPENDENCIES  =
+libnptone0_la_DEPENDENCIES +=                      %reldir%/libnptone.sym
 
 libnptone0_la_LDFLAGS += -version-info 0:0:0
 

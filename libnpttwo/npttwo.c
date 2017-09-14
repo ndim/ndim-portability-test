@@ -7,11 +7,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 #define REALLOC_INCREMENT 50
+
 
 static npttwo_plugin **plugins;
 static size_t mem_idx;
 static size_t used_idx;
+
 
 static
 void npttwo_init(void)
@@ -19,17 +22,20 @@ void npttwo_init(void)
   __attribute__((used))
   ;
 
+
 static
 void npttwo_done(void)
   __attribute__((destructor))
   __attribute__((used))
   ;
 
+
 void npttwo_fun(void)
 {
   printf("npttwo_fun\n");
   assert(plugins);
 }
+
 
 static int
 foreach_func(const char *filename, lt_ptr data __attribute__((unused)))
@@ -67,6 +73,7 @@ foreach_func(const char *filename, lt_ptr data __attribute__((unused)))
   return 0;
 }
 
+
 static
 void npttwo_init(void)
 {
@@ -82,9 +89,10 @@ void npttwo_init(void)
 
   printf("Plugin list:\n");
   for (size_t i=0; i<used_idx; i++) {
-    printf("  %3d. %s\n", i+1, plugins[i]->name);
+    printf("  %d. %s\n", i+1, plugins[i]->name);
   }
 }
+
 
 static
 void npttwo_done(void)
@@ -95,5 +103,26 @@ void npttwo_done(void)
     plugins = NULL;
     mem_idx = 0;
     used_idx = 0;
+  }
+}
+
+
+void npttwo_func1(void)
+{
+  printf("Plugin list:\n");
+  for (size_t i=0; i<used_idx; i++) {
+    printf("%d. %s\n", i+1, plugins[i]->name);
+    plugins[i]->func1();
+  }
+}
+
+
+void npttwo_func2(void)
+{
+  printf("Plugin list:\n");
+  for (size_t i=0; i<used_idx; i++) {
+    printf("%d. %s\n", i+1, plugins[i]->name);
+    const int ret = plugins[i]->func2(5);
+    printf("    %d = func2(%d)\n", ret, 5);
   }
 }
