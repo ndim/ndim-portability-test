@@ -6,7 +6,7 @@ distcheck-hook: git-version-check
 #       restart the whole dist process from the start and there is none.
 EXTRA_DIST += $(top_srcdir)/%reldir%/package-version.sh
 git-version-check:
-	@git_ver=`$(top_srcdir)/%reldir%/package-version.sh $(top_srcdir) version-stamp`; \
+	@git_ver="$$($(top_srcdir)/%reldir%/package-version.sh $(top_srcdir) version-stamp)"; \
 	if test "x$${git_ver}" = "x$(PACKAGE_VERSION)"; then :; else \
 		echo "ERROR: PACKAGE_VERSION and 'git describe' version do not match:"; \
 		echo "         current 'git describe' version: $${git_ver}"; \
@@ -23,10 +23,10 @@ git-version-check:
 # FIXME: NEWS check uses ${foo%%-*} POSIX shell, tested
 #        with bash, dash, busybox.
 git-version-check-news:
-	@git_ver=`$(top_srcdir)/%reldir%/package-version.sh $(top_srcdir) version-stamp`; \
+	@git_ver="$$($(top_srcdir)/%reldir%/package-version.sh $(top_srcdir) version-stamp)"; \
 	gv_xyz="$${git_ver%%-*}"; \
 	gv_xy="$${gv_xyz%.*}"; \
-	case `$(SED) 1q $(top_srcdir)/NEWS` in \
+	case "$$($(SED) 1q $(top_srcdir)/NEWS)" in \
 	"$(PACKAGE_TARNAME) $${gv_xyz}") : ;; \
 	"$(PACKAGE_TARNAME) $${gv_xy}.x") : ;; \
 	*) \
@@ -81,7 +81,7 @@ A_V = package-version-internal
 CLEANFILES    += $(A_V).h
 BUILT_SOURCES += $(A_V).h.stamp
 $(A_V).h.stamp:
-	@current_ver=`$(SHELL) $(top_srcdir)/%reldir%/package-version.sh $(top_srcdir) version-stamp`; \
+	@current_ver="$$($(SHELL) $(top_srcdir)/%reldir%/package-version.sh $(top_srcdir) version-stamp)"; \
 	{ echo '#ifndef PACKAGE_VERSION_INTERNAL_H'; \
 	  echo "#define PACKAGE_VERSION_INTERNAL \"$${current_ver}\""; \
 	  echo "#endif /* !PACKAGE_VERSION_INTERNAL */"; } > "$(A_V).h.new"
