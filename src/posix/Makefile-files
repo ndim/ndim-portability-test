@@ -23,6 +23,11 @@ bin_PROGRAMS                       += %reldir%/npt
 %canon_reldir%_npt_DEPENDENCIES    += libnptone0.la
 %canon_reldir%_npt_LDADD           += libnptone0.la
 
+%canon_reldir%_npt_CPPFLAGS        += -I$(top_srcdir)/libnpttwo
+%canon_reldir%_npt_DEPENDENCIES    += libnpttwo0.la
+%canon_reldir%_npt_LDADD           += libnpttwo0.la
+%canon_reldir%_npt_LDADD           += $(LIBLTDL)
+
 %canon_reldir%_npt_CPPFLAGS        += '-DPROGNAME="npt"'
 
 %canon_reldir%_npt_SOURCES         += %reldir%/npt-posix.c

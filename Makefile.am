@@ -36,7 +36,19 @@ AM_CFLAGS += -Werror
 # GNUmakefile.in, so we ship that in the dist tarball.
 EXTRA_DIST += GNUmakefile.in
 
+SUBSTITUTIONS =
+SUBSTITUTIONS += -e 's,[@]exec_prefix@,$(exec_prefix),g'
+SUBSTITUTIONS += -e 's,[@]prefix@,$(prefix),g'
+SUBSTITUTIONS += -e 's,[@]libdir@,$(libdir),g'
+SUBSTITUTIONS += -e 's,[@]includedir@,$(includedir),g'
+SUBSTITUTIONS += -e 's,[@]PACKAGE_NAME@,$(PACKAGE_NAME),g'
+SUBSTITUTIONS += -e 's,[@]PACKAGE_URL@,$(PACKAGE_URL),g'
+SUBSTITUTIONS += -e 's,[@]VERSION@,$(VERSION),g'
+
+SUBSTITUTE = $(SED) $(SUBSTITUTIONS)
+
 include build-helpers/package-version.mk
 
 include libnptone/Makefile-files
+include libnpttwo/Makefile-files
 include src/Makefile-files

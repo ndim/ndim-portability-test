@@ -46,6 +46,9 @@ AM_CONDITIONAL([BUILD_FOR_WINDOWS],
 AM_CONDITIONAL([BUILD_FOR_POSIX],
                [test "x$build_for_windows" != "xyes"])
 
+AC_SUBST([LIBLTDL], [-lltdl])
+AC_SUBST([LTDLINCL], [])
+
 AC_CONFIG_FILES([GNUmakefile])
 AC_CONFIG_FILES([Makefile])
 

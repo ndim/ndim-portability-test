@@ -1,0 +1,77 @@
+# -*- Makefile -*-
+
+# This API is called "ntptwo0" to make it easier for parallel
+# installation of later API versions later.
+
+lib_LTLIBRARIES += libnpttwo0.la
+
+npttwoapiincludedir = $(includedir)/npttwo0/npttwo
+
+npttwoapiinclude_HEADERS =
+npttwoapiinclude_HEADERS += %reldir%/npttwo/npttwo.h
+
+libnpttwo0_la_CPPFLAGS =
+if BUILD_FOR_WINDOWS
+libnpttwo0_la_CPPFLAGS += -DBUILDING_LIBNPTTWO0_DLL
+endif
+
+libnpttwo0_la_LDFLAGS =
+libnpttwo0_la_LDFLAGS += -no-undefined
+
+libnpttwo0_la_LDFLAGS += -export-symbols $(srcdir)/%reldir%/libnpttwo.sym
+EXTRA_DIST            +=                           %reldir%/libnpttwo.sym
+
+libnpttwo0_la_LDFLAGS += -version-info 0:0:0
+
+libnpttwo0_la_LIBADD   =
+libnpttwo0_la_LIBADD  += $(LIBLTDL)
+libnpttwo0_la_CFLAGS   =
+libnpttwo0_la_CFLAGS  += $(LTDLINCL)
+
+libnpttwo0_la_SOURCES =
+libnpttwo0_la_SOURCES += %reldir%/npttwo.c
+
+CLEANFILES  += libnpttwo0-uninstalled.pc
+noinst_DATA += libnpttwo0-uninstalled.pc
+EXTRA_DIST  += %reldir%/libnpttwo-uninstalled.pc.in
+libnpttwo0-uninstalled.pc: $(srcdir)/%reldir%/libnpttwo.pc.in
+	$(SUBSTITUTE) $(srcdir)/%reldir%/libnpttwo-uninstalled.pc.in > libnpttwo0-uninstalled.pc
+
+CLEANFILES            += libnpttwo0.pc
+nodist_pkgconfig_DATA += libnpttwo0.pc
+EXTRA_DIST            += %reldir%/libnpttwo.pc.in
+libnpttwo0.pc: $(srcdir)/%reldir%/libnpttwo.pc.in
+	$(SUBSTITUTE) $(srcdir)/%reldir%/libnpttwo.pc.in > libnpttwo0.pc
+
+npttwoplugin_dependencies  = $(top_srcdir)/%reldir%/plugin.sym
+npttwoplugin_dependencies += libnpttwo0.la
+npttwoplugin_ldflags       =
+npttwoplugin_ldflags      += -module
+npttwoplugin_ldflags      += -no-undefined
+npttwoplugin_ldflags      += -avoid-version
+npttwoplugin_ldflags      += -export-dynamic
+npttwoplugin_ldflags      += -export-symbols $(top_srcdir)/%reldir%/plugin.sym
+npttwoplugin_libadd        = $(top_builddir)/libnpttwo0.la
+
+npttwoplugindir            = $(pkglibdir)/plugins
+libnpttwo0_la_CPPFLAGS    += -DNPTTWO_PLUGINDIR='"$(npttwoplugindir)"'
+
+npttwoplugin_LTLIBRARIES   =
+
+npttwoplugin_LTLIBRARIES  += plugin_a.la
+plugin_a_la_SOURCES        = %reldir%/plugin-a.c
+plugin_a_la_DEPENDENCIES   = $(npttwoplugin_dependencies)
+plugin_a_la_LDFLAGS        = $(npttwoplugin_ldflags)
+plugin_a_la_LIBADD         = $(npttwoplugin_libadd)
+
+npttwoplugin_LTLIBRARIES  += plugin_b.la
+plugin_b_la_SOURCES        = %reldir%/plugin-b.c
+plugin_b_la_DEPENDENCIES   = $(npttwoplugin_dependencies)
+plugin_b_la_LDFLAGS        = $(npttwoplugin_ldflags)
+plugin_b_la_LIBADD         = $(npttwoplugin_libadd)
+
+npttwoplugin_LTLIBRARIES  += plugin_c.la
+plugin_c_la_SOURCES        = %reldir%/plugin-c.c
+plugin_c_la_DEPENDENCIES   = $(npttwoplugin_dependencies)
+plugin_c_la_LDFLAGS        = $(npttwoplugin_ldflags)
+plugin_c_la_LIBADD         = $(npttwoplugin_libadd)

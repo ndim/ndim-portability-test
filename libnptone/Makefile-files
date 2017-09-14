@@ -5,10 +5,10 @@
 
 lib_LTLIBRARIES += libnptone0.la
 
-apiincludedir = $(includedir)/nptone0/nptone
+nptoneapiincludedir = $(includedir)/nptone0/nptone
 
-apiinclude_HEADERS =
-apiinclude_HEADERS += %reldir%/nptone/nptone.h
+nptoneapiinclude_HEADERS =
+nptoneapiinclude_HEADERS += %reldir%/nptone/nptone.h
 
 libnptone0_la_CPPFLAGS =
 if BUILD_FOR_WINDOWS
@@ -25,17 +25,6 @@ libnptone0_la_LDFLAGS += -version-info 0:0:0
 
 libnptone0_la_SOURCES =
 libnptone0_la_SOURCES += %reldir%/nptone.c
-
-SUBSTITUTIONS =
-SUBSTITUTIONS += -e 's,[@]exec_prefix@,$(exec_prefix),g'
-SUBSTITUTIONS += -e 's,[@]prefix@,$(prefix),g'
-SUBSTITUTIONS += -e 's,[@]libdir@,$(libdir),g'
-SUBSTITUTIONS += -e 's,[@]includedir@,$(includedir),g'
-SUBSTITUTIONS += -e 's,[@]PACKAGE_NAME@,$(PACKAGE_NAME),g'
-SUBSTITUTIONS += -e 's,[@]PACKAGE_URL@,$(PACKAGE_URL),g'
-SUBSTITUTIONS += -e 's,[@]VERSION@,$(VERSION),g'
-
-SUBSTITUTE = $(SED) $(SUBSTITUTIONS)
 
 CLEANFILES  += libnptone0-uninstalled.pc
 noinst_DATA += libnptone0-uninstalled.pc
