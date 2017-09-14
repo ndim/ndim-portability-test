@@ -27,6 +27,14 @@ AC_ARG_VAR([GIT], [git revision control system])
 AC_PATH_PROG([GIT], [git], [no])
 AM_CONDITIONAL([HAVE_GIT], [test "x$GIT" != "xno"])
 
+m4_pattern_forbid([ADD_FLAGS])
+ADD_FLAGS([CFLAGS],   [-std=c11 -pedantic])
+ADD_FLAGS([CFLAGS],   [-Wall])
+ADD_FLAGS([CFLAGS],   [-Wextra])
+ADD_FLAGS([CFLAGS],   [-Werror])
+ADD_FLAGS([CPPFLAGS], [-DFOO=42])
+dnl ADD_FLAGS([LDFLAGS],  [-Wl,-blubb])
+
 # Checks for libraries.
 
 # Checks for header files.

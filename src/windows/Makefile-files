@@ -22,6 +22,10 @@ CLEANFILES                         += npt.log
 %C%_npt_LDADD                       =
 %C%_npt_SOURCES                     =
 
+%C%_npt_CFLAGS                     += $(ADD_CFLAGS)
+%C%_npt_CPPFLAGS                   += $(ADD_CPPFLAGS)
+%C%_npt_LDADD                      += $(ADD_LDFLAGS)
+
 %C%_npt_CPPFLAGS                   += '-DPROGNAME="npt"'
 %C%_npt_CFLAGS                     += -mwindows
 
@@ -32,6 +36,10 @@ CLEANFILES                         += npt.log
 %C%_npt_CPPFLAGS                   += -I$(top_srcdir)/libnptone
 %C%_npt_DEPENDENCIES               += libnptone0.la
 %C%_npt_LDADD                      += libnptone0.la
+
+%C%_npt_CPPFLAGS                   += -I$(top_srcdir)/libnpttwo
+%C%_npt_DEPENDENCIES               += libnpttwo0.la
+%C%_npt_LDADD                      += libnpttwo0.la
 
 
 ########################################################################
@@ -52,6 +60,10 @@ CLEANFILES                         += npt-console.log
 %C%_npt_console_LDADD               =
 %C%_npt_console_SOURCES             =
 
+%C%_npt_console_CFLAGS             += $(ADD_CFLAGS)
+%C%_npt_console_CPPFLAGS           += $(ADD_CPPFLAGS)
+%C%_npt_console_LDADD              += $(ADD_LDFLAGS)
+
 %C%_npt_console_CPPFLAGS           += '-DPROGNAME="npt-console"'
 %C%_npt_console_CFLAGS             += -mconsole
 
@@ -62,6 +74,10 @@ CLEANFILES                         += npt-console.log
 %C%_npt_console_CPPFLAGS           += -I$(top_srcdir)/libnptone
 %C%_npt_console_DEPENDENCIES       += libnptone0.la
 %C%_npt_console_LDADD              += libnptone0.la
+
+%C%_npt_console_CPPFLAGS           += -I$(top_srcdir)/libnpttwo
+%C%_npt_console_DEPENDENCIES       += libnpttwo0.la
+%C%_npt_console_LDADD              += libnpttwo0.la
 
 
 ########################################################################
@@ -86,10 +102,14 @@ bin_PROGRAMS                       += %D%/npt-exetype
 AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %D%/npt-exetype
 %C%_npt_exetype_CPPFLAGS            =
 %C%_npt_exetype_CFLAGS              =
+%C%_npt_exetype_LDFLAGS             =
 %C%_npt_exetype_CPPFLAGS           += -DPROGNAME='"npt-exetype"'
 %C%_npt_exetype_CPPFLAGS           += -DPROGNAMEW='L"npt-exetype"'
 %C%_npt_exetype_CFLAGS             += -mconsole
 %C%_npt_exetype_SOURCES             = %D%/npt-exetype.c
 
+%C%_npt_exetype_CFLAGS             += $(ADD_CFLAGS)
+%C%_npt_exetype_CPPFLAGS           += $(ADD_CPPFLAGS)
+%C%_npt_exetype_LDFLAGS            += $(ADD_LDFLAGS)
 
 endif

@@ -10,6 +10,8 @@ nptoneapiincludedir = $(includedir)/nptone0/nptone
 nptoneapiinclude_HEADERS =
 nptoneapiinclude_HEADERS += %reldir%/nptone/nptone.h
 
+libnptone0_la_CFLAGS   =
+
 libnptone0_la_CPPFLAGS =
 if BUILD_FOR_WINDOWS
 libnptone0_la_CPPFLAGS += -DBUILDING_LIBNPTONE0_DLL
@@ -24,6 +26,10 @@ libnptone0_la_DEPENDENCIES  =
 libnptone0_la_DEPENDENCIES +=                      %reldir%/libnptone.sym
 
 libnptone0_la_LDFLAGS += -version-info 0:0:0
+
+libnptone0_la_CFLAGS   += $(ADD_CFLAGS)
+libnptone0_la_CPPFLAGS += $(ADD_CPPFLAGS)
+libnptone0_la_LDFLAGS  += $(ADD_LDFLAGS)
 
 libnptone0_la_SOURCES =
 libnptone0_la_SOURCES += %reldir%/nptone.c

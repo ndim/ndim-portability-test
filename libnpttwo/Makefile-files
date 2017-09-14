@@ -10,6 +10,8 @@ npttwoapiincludedir = $(includedir)/npttwo0/npttwo
 npttwoapiinclude_HEADERS =
 npttwoapiinclude_HEADERS += %reldir%/npttwo/npttwo.h
 
+libnpttwo0_la_CFLAGS   =
+
 libnpttwo0_la_CPPFLAGS =
 if BUILD_FOR_WINDOWS
 libnpttwo0_la_CPPFLAGS += -DBUILDING_LIBNPTTWO0_DLL
@@ -23,11 +25,18 @@ EXTRA_DIST            +=                           %reldir%/libnpttwo.sym
 libnpttwo0_la_DEPENDENCIES  =
 libnpttwo0_la_DEPENDENCIES +=                      %reldir%/libnpttwo.sym
 
+if BUILD_FOR_WINDOWS
+libnpttwo0_la_LDFLAGS += -Wl,--export-all-symbols,--out-implib=libnpttwo0.dll.a
+endif
+
 libnpttwo0_la_LDFLAGS += -version-info 0:0:0
+
+libnpttwo0_la_CFLAGS   += $(ADD_CFLAGS)
+libnpttwo0_la_CPPFLAGS += $(ADD_CPPFLAGS)
+libnpttwo0_la_LDFLAGS  += $(ADD_LDFLAGS)
 
 libnpttwo0_la_LIBADD   =
 libnpttwo0_la_LIBADD  += $(LIBLTDL)
-libnpttwo0_la_CFLAGS   =
 libnpttwo0_la_CFLAGS  += $(LTDLINCL)
 
 libnpttwo0_la_SOURCES =
@@ -45,8 +54,13 @@ EXTRA_DIST            += %reldir%/libnpttwo.pc.in
 libnpttwo0.pc: $(srcdir)/%reldir%/libnpttwo.pc.in
 	$(SUBSTITUTE) $(srcdir)/%reldir%/libnpttwo.pc.in > libnpttwo0.pc
 
+EXTRA_DIST                += %reldir%/npttwo/plugin-api.h
+EXTRA_DIST                += %reldir%/plugin.sym
+
 npttwoplugin_dependencies  = $(top_srcdir)/%reldir%/plugin.sym
 npttwoplugin_dependencies += libnpttwo0.la
+npttwoplugin_cppflags      =
+npttwoplugin_cppflags     += -I$(top_srcdir)/%reldir%
 npttwoplugin_ldflags       =
 npttwoplugin_ldflags      += -module
 npttwoplugin_ldflags      += -no-undefined
@@ -55,25 +69,13 @@ npttwoplugin_ldflags      += -export-dynamic
 npttwoplugin_ldflags      += -export-symbols $(top_srcdir)/%reldir%/plugin.sym
 npttwoplugin_libadd        = $(top_builddir)/libnpttwo0.la
 
-npttwoplugindir            = $(pkglibdir)/plugins
+if BUILD_FOR_WINDOWS
+npttwoplugin_ldflags      += -shared
+npttwoplugin_ldflags      += -enable-runtime-pseudo-reloc
+# npttwoplugin_ldflags      += -L$(top_builddir)/.libs libnpttwo0.dll.a
+endif
+
+npttwoplugindir            = $(pkglibdir)/npttwoplugins
 libnpttwo0_la_CPPFLAGS    += -DNPTTWO_PLUGINDIR='"$(npttwoplugindir)"'
 
-npttwoplugin_LTLIBRARIES   =
-
-npttwoplugin_LTLIBRARIES  += plugin_a.la
-plugin_a_la_SOURCES        = %reldir%/plugin-a.c
-plugin_a_la_DEPENDENCIES   = $(npttwoplugin_dependencies)
-plugin_a_la_LDFLAGS        = $(npttwoplugin_ldflags)
-plugin_a_la_LIBADD         = $(npttwoplugin_libadd)
-
-npttwoplugin_LTLIBRARIES  += plugin_b.la
-plugin_b_la_SOURCES        = %reldir%/plugin-b.c
-plugin_b_la_DEPENDENCIES   = $(npttwoplugin_dependencies)
-plugin_b_la_LDFLAGS        = $(npttwoplugin_ldflags)
-plugin_b_la_LIBADD         = $(npttwoplugin_libadd)
-
-npttwoplugin_LTLIBRARIES  += plugin_c.la
-plugin_c_la_SOURCES        = %reldir%/plugin-c.c
-plugin_c_la_DEPENDENCIES   = $(npttwoplugin_dependencies)
-plugin_c_la_LDFLAGS        = $(npttwoplugin_ldflags)
-plugin_c_la_LIBADD         = $(npttwoplugin_libadd)
+include %reldir%/plugins/Makefile-files

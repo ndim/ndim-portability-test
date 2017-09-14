@@ -16,6 +16,10 @@ bin_PROGRAMS                       += %reldir%/npt
 %canon_reldir%_npt_LDADD            =
 %canon_reldir%_npt_SOURCES          =
 
+%canon_reldir%_npt_CFLAGS          += $(ADD_CFLAGS)
+%canon_reldir%_npt_CPPFLAGS        += $(ADD_CPPFLAGS)
+%canon_reldir%_npt_LDADD           += $(ADD_LDFLAGS)
+
 %canon_reldir%_npt_SOURCES         += $(npt_sources)
 %canon_reldir%_npt_CPPFLAGS        += -I$(top_srcdir)/src
 
