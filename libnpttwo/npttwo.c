@@ -48,6 +48,17 @@ foreach_func(const char *filename, lt_ptr data __attribute__((unused)))
     return 1;
   }
 
+  const lt_dlinfo *info = lt_dlgetinfo(lh);
+  if (info) {
+    printf("      * lt_dlinfo:\n");
+    printf("          * filename:     %s\n", info->filename);
+    printf("          * name:         %s\n", info->name);
+    printf("          * ref_count:    %d\n", info->ref_count);
+    printf("          * is_resident:  %d\n", info->is_resident);
+    printf("          * is_symglobal: %d\n", info->is_symglobal);
+    printf("          * is_symlocal:  %d\n", info->is_symlocal);
+  }
+
   npttwo_plugin *plugin = lt_dlsym(lh, "plugin");
   if (!plugin) {
     printf("      * no 'plugin' symbol found: %s\n", lt_dlerror());
@@ -59,7 +70,7 @@ foreach_func(const char *filename, lt_ptr data __attribute__((unused)))
 
   if (mem_idx <= used_idx) {
     size_t new_mem_idx = mem_idx + REALLOC_INCREMENT;
-    printf("      * realloc from %d to %d plugins\n", mem_idx, new_mem_idx);
+    printf("      * realloc from %zd to %zd plugins\n", mem_idx, new_mem_idx);
     npttwo_plugin **new_plugins = realloc(plugins, new_mem_idx * sizeof(npttwo_plugin *));
     assert(new_plugins);
     plugins = new_plugins;
@@ -82,14 +93,14 @@ void npttwo_init(void)
   const char *const plugindir = tmp_dir?tmp_dir:NPTTWO_PLUGINDIR;
   printf("npttwo_init: plugindir = %s\n", plugindir);
   assert(0 == lt_dlinit());
-  lt_dladdsearchdir(plugindir);
+  assert(0 == lt_dladdsearchdir(plugindir));
 
   printf("Scanning plugin directory:\n");
   assert(0 == lt_dlforeachfile(plugindir, foreach_func, NULL));
 
   printf("Plugin list:\n");
   for (size_t i=0; i<used_idx; i++) {
-    printf("  %d. %s\n", i+1, plugins[i]->name);
+    printf("  %zd. %s\n", i+1, plugins[i]->name);
   }
 }
 
@@ -103,6 +114,8 @@ void npttwo_done(void)
     plugins = NULL;
     mem_idx = 0;
     used_idx = 0;
+
+    lt_dlexit();
   }
 }
 
@@ -111,7 +124,7 @@ void npttwo_func1(void)
 {
   printf("Plugin list:\n");
   for (size_t i=0; i<used_idx; i++) {
-    printf("%d. %s\n", i+1, plugins[i]->name);
+    printf("%zd. %s\n", i+1, plugins[i]->name);
     plugins[i]->func1();
   }
 }
@@ -121,7 +134,7 @@ void npttwo_func2(void)
 {
   printf("Plugin list:\n");
   for (size_t i=0; i<used_idx; i++) {
-    printf("%d. %s\n", i+1, plugins[i]->name);
+    printf("%zd. %s\n", i+1, plugins[i]->name);
     const int v = 5;
     const int ret = plugins[i]->func2(v);
     printf("    %d = func2(%d)\n", ret, v);
@@ -133,7 +146,7 @@ void npttwo_func3(void)
 {
   printf("Plugin list:\n");
   for (size_t i=0; i<used_idx; i++) {
-    printf("%d. %s\n", i+1, plugins[i]->name);
+    printf("%zd. %s\n", i+1, plugins[i]->name);
     const int v = 2;
     const int ret = plugins[i]->func3(npttwo_call_from_plugin(v));
     printf("    %d = func3(%d)\n", ret, v);
