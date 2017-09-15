@@ -43,6 +43,6 @@ AC_DEFUN([ADD_FLAGS], [dnl
                           [AC_MSG_RESULT([[no (not added to default $1)]])])
            LDFLAGS="$saved_LDFLAGS"
           ],
-          [AC_MSG_ERROR([Unhandled flags variable: ][$1])])dnl
+          [m4_fatal([Unhandled flags variable: $1])])dnl
 ])dnl
 dnl
