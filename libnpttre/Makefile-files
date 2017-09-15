@@ -1,0 +1,87 @@
+# -*- Makefile -*-
+
+# This API is called "ntptre0" to make it easier for parallel
+# installation of later API versions later.
+
+lib_LTLIBRARIES += libnpttre0.la
+
+npttreapiincludedir = $(includedir)/npttre0/npttre
+
+npttreapiinclude_HEADERS =
+npttreapiinclude_HEADERS += %reldir%/npttre/npttre.h
+
+libnpttre0_la_CFLAGS   =
+
+libnpttre0_la_CPPFLAGS =
+if BUILD_FOR_WINDOWS
+libnpttre0_la_CPPFLAGS += -DBUILDING_LIBNPTTRE0_DLL
+
+# Make mingw's msvcrt accept %zu
+libnpttre0_la_CPPFLAGS += -D__USE_MINGW_ANSI_STDIO=1
+endif
+
+libnpttre0_la_LDFLAGS =
+libnpttre0_la_LDFLAGS += -no-undefined
+
+libnpttre0_la_LDFLAGS += -export-symbols $(srcdir)/%reldir%/libnpttre.sym
+EXTRA_DIST            +=                           %reldir%/libnpttre.sym
+libnpttre0_la_DEPENDENCIES  =
+libnpttre0_la_DEPENDENCIES +=                      %reldir%/libnpttre.sym
+
+if BUILD_FOR_WINDOWS
+libnpttre0_la_LDFLAGS += -Wl,--export-all-symbols,--out-implib=libnpttre0.dll.a
+endif
+
+libnpttre0_la_LDFLAGS += -version-info 0:0:0
+
+libnpttre0_la_CFLAGS   += $(ADD_CFLAGS)
+libnpttre0_la_CPPFLAGS += $(ADD_CPPFLAGS)
+libnpttre0_la_LDFLAGS  += $(ADD_LDFLAGS)
+
+libnpttre0_la_LIBADD   =
+libnpttre0_la_LIBADD  += $(LIBLTDL)
+libnpttre0_la_CFLAGS  += $(LTDLINCL)
+
+libnpttre0_la_SOURCES =
+libnpttre0_la_SOURCES += %reldir%/npttre.c
+
+CLEANFILES  += libnpttre0-uninstalled.pc
+noinst_DATA += libnpttre0-uninstalled.pc
+EXTRA_DIST  += %reldir%/libnpttre-uninstalled.pc.in
+libnpttre0-uninstalled.pc: $(srcdir)/%reldir%/libnpttre.pc.in
+	$(SUBSTITUTE) $(srcdir)/%reldir%/libnpttre-uninstalled.pc.in > libnpttre0-uninstalled.pc
+
+CLEANFILES            += libnpttre0.pc
+nodist_pkgconfig_DATA += libnpttre0.pc
+EXTRA_DIST            += %reldir%/libnpttre.pc.in
+libnpttre0.pc: $(srcdir)/%reldir%/libnpttre.pc.in
+	$(SUBSTITUTE) $(srcdir)/%reldir%/libnpttre.pc.in > libnpttre0.pc
+
+EXTRA_DIST                += %reldir%/npttre/plugin-api.h
+EXTRA_DIST                += %reldir%/plugin.sym
+
+npttreplugin_dependencies  = $(top_srcdir)/%reldir%/plugin.sym
+npttreplugin_dependencies += libnpttre0.la
+npttreplugin_cppflags      =
+npttreplugin_cppflags     += -I$(top_srcdir)/%reldir%
+npttreplugin_cppflags     += -I$(top_srcdir)/libnpttwo
+npttreplugin_ldflags       =
+npttreplugin_ldflags      += -module
+npttreplugin_ldflags      += -no-undefined
+npttreplugin_ldflags      += -avoid-version
+npttreplugin_ldflags      += -export-dynamic
+npttreplugin_ldflags      += -export-symbols $(top_srcdir)/%reldir%/plugin.sym
+npttreplugin_libadd        =
+npttreplugin_libadd       += $(top_builddir)/libnpttre0.la
+npttreplugin_libadd       += $(top_builddir)/libnpttwo0.la
+
+if BUILD_FOR_WINDOWS
+npttreplugin_ldflags      += -shared
+npttreplugin_ldflags      += -enable-runtime-pseudo-reloc
+# npttreplugin_ldflags      += -L$(top_builddir)/.libs libnpttre0.dll.a
+endif
+
+npttreplugindir            = $(pkglibdir)/npttreplugins
+libnpttre0_la_CPPFLAGS    += -DNPTTRE_PLUGINDIR='"$(npttreplugindir)"'
+
+include %reldir%/plugins/Makefile-files

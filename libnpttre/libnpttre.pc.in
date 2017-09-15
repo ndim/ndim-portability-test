@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+VERSION=@VERSION@
+
+Name: libnpttre
+Description: @PACKAGE_NAME@ library tre (three)
+URL: @PACKAGE_URL@
+Version: @VERSION@
+Libs: -L${libdir} -lnpttre
+Cflags: -I${includedir}/npttre0

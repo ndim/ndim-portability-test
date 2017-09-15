@@ -2,6 +2,7 @@
 
 #include <nptone/nptone.h>
 #include <npttwo/npttwo.h>
+#include <npttre/npttre.h>
 
 void npt_common(void)
 {
@@ -19,4 +20,13 @@ void npt_common(void)
 
   printf("\n");
   npttwo_func3("    ");
+
+  printf("\n");
+  npttre_func1("    ");
+
+  printf("\n");
+  npttre_func2("    ");
+
+  printf("\n");
+  npttre_func3("    ");
 }

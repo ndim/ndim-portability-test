@@ -1,5 +1,5 @@
-#include "npttwo/npttwo.h"
-#include "npttwo/plugin-api.h"
+#include "npttre/npttre.h"
+#include "npttre/plugin-api.h"
 
 #include <ltdl.h>
 
@@ -12,28 +12,28 @@
 #define REALLOC_INCREMENT 50
 
 
-static npttwo_plugin **plugins;
+static npttre_plugin **plugins;
 static size_t mem_idx;
 static size_t used_idx;
 
 
 static
-void npttwo_init(void)
+void npttre_init(void)
   __attribute__((constructor))
   __attribute__((used))
   ;
 
 
 static
-void npttwo_done(void)
+void npttre_done(void)
   __attribute__((destructor))
   __attribute__((used))
   ;
 
 
-void LIBNPTTWO0_DLL npttwo_fun(void)
+void LIBNPTTRE0_DLL npttre_fun(void)
 {
-  printf("npttwo_fun\n");
+  printf("npttre_fun\n");
   assert(plugins);
 }
 
@@ -41,7 +41,7 @@ void LIBNPTTWO0_DLL npttwo_fun(void)
 static int
 foreach_func(const char *filename, lt_ptr data __attribute__((unused)))
 {
-  printf("  * npttwo foreach_func %s\n", filename);
+  printf("  * npttre foreach_func %s\n", filename);
 
   lt_dlhandle lh = lt_dlopen(filename);
   if (lh == 0) {
@@ -63,7 +63,7 @@ foreach_func(const char *filename, lt_ptr data __attribute__((unused)))
     printf("          * is_symlocal:  %d\n", info->is_symlocal);
   }
 
-  npttwo_plugin *plugin = lt_dlsym(lh, "plugin");
+  npttre_plugin *plugin = lt_dlsym(lh, "plugin");
   if (!plugin) {
     printf("      * no 'plugin' symbol found: %s\n", lt_dlerror());
     lt_dlclose(lh);
@@ -76,8 +76,8 @@ foreach_func(const char *filename, lt_ptr data __attribute__((unused)))
     const size_t new_mem_idx = mem_idx + REALLOC_INCREMENT;
     printf("      * realloc from %zu to %zu plugins\n",
 	   mem_idx, new_mem_idx);
-    npttwo_plugin **new_plugins =
-      realloc(plugins, new_mem_idx * sizeof(npttwo_plugin *));
+    npttre_plugin **new_plugins =
+      realloc(plugins, new_mem_idx * sizeof(npttre_plugin *));
     assert(new_plugins);
     plugins = new_plugins;
     mem_idx = new_mem_idx;
@@ -92,19 +92,19 @@ foreach_func(const char *filename, lt_ptr data __attribute__((unused)))
 
 
 static
-void npttwo_init(void)
+void npttre_init(void)
 {
-  printf("npttwo_init\n");
-  const char *const tmp_dir = getenv("NPTTWO_PLUGINS");
-  const char *const plugindir = tmp_dir?tmp_dir:NPTTWO_PLUGINDIR;
-  printf("npttwo_init: plugindir = %s\n", plugindir);
+  printf("npttre_init\n");
+  const char *const tmp_dir = getenv("NPTTRE_PLUGINS");
+  const char *const plugindir = tmp_dir?tmp_dir:NPTTRE_PLUGINDIR;
+  printf("npttre_init: plugindir = %s\n", plugindir);
   assert(0 == lt_dlinit());
   assert(0 == lt_dladdsearchdir(plugindir));
 
-  printf("Scanning plugin directory two:\n");
+  printf("Scanning plugin directory tre:\n");
   assert(0 == lt_dlforeachfile(plugindir, foreach_func, NULL));
 
-  printf("Plugin list two:\n");
+  printf("Plugin list tre:\n");
   for (size_t i=0; i<used_idx; i++) {
     printf("  %zu. %s\n", i+1, plugins[i]->name);
   }
@@ -114,10 +114,10 @@ void npttwo_init(void)
 
 
 static
-void npttwo_done(void)
+void npttre_done(void)
 {
   if (plugins) {
-    printf("Freeing plugins two");
+    printf("Freeing plugins tre");
     free(plugins);
     plugins = NULL;
     mem_idx = 0;
@@ -128,9 +128,9 @@ void npttwo_done(void)
 }
 
 
-void LIBNPTTWO0_DLL npttwo_func1(const char *const prefix)
+void LIBNPTTRE0_DLL npttre_func1(const char *const prefix)
 {
-  printf("Plugin list func1 two:\n");
+  printf("Plugin list func1 tre:\n");
   for (size_t i=0; i<used_idx; i++) {
     printf("%s%zu. %s\n", prefix, i+1, plugins[i]->name);
     plugins[i]->func1(prefix);
@@ -138,9 +138,9 @@ void LIBNPTTWO0_DLL npttwo_func1(const char *const prefix)
 }
 
 
-void LIBNPTTWO0_DLL npttwo_func2(const char *const prefix)
+void LIBNPTTRE0_DLL npttre_func2(const char *const prefix)
 {
-  printf("Plugin list func2 two:\n");
+  printf("Plugin list func2 tre:\n");
   for (size_t i=0; i<used_idx; i++) {
     printf("%s%zu. %s\n", prefix, i+1, plugins[i]->name);
     const int v = 5;
@@ -150,9 +150,9 @@ void LIBNPTTWO0_DLL npttwo_func2(const char *const prefix)
 }
 
 
-void LIBNPTTWO0_DLL npttwo_func3(const char *const prefix)
+void LIBNPTTRE0_DLL npttre_func3(const char *const prefix)
 {
-  printf("Plugin list func3 two:\n");
+  printf("Plugin list func3 tre:\n");
   for (size_t i=0; i<used_idx; i++) {
     printf("%s%zu. %s\n", prefix, i+1, plugins[i]->name);
     const int v = 2;
@@ -162,7 +162,7 @@ void LIBNPTTWO0_DLL npttwo_func3(const char *const prefix)
 }
 
 
-int LIBNPTTWO0_DLL npttwo_call_from_plugin(int value)
+int LIBNPTTRE0_DLL npttre_call_from_plugin(int value)
 {
   return (value+5);
 }

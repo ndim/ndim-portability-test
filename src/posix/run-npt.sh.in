@@ -1,6 +1,9 @@
 #!/bin/sh
 
-NPTTWO_PLUGINS=@abs_plugindir@
+NPTTWO_PLUGINS=@abs_plugindir_two@
 export NPTTWO_PLUGINS
+
+NPTTRE_PLUGINS=@abs_plugindir_tre@
+export NPTTRE_PLUGINS
 
 @abs_builddir@/npt

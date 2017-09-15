@@ -1,0 +1,39 @@
+# -*- Makefile -*-
+
+npttreplugin_LTLIBRARIES  =
+
+npttreplugin_LTLIBRARIES += %D%/a.la
+%C%_a_la_SOURCES          = %D%/plugin-a.c
+%C%_a_la_CFLAGS           =
+%C%_a_la_CPPFLAGS         = $(npttreplugin_cppflags)
+%C%_a_la_DEPENDENCIES     = $(npttreplugin_dependencies)
+%C%_a_la_LDFLAGS          = $(npttreplugin_ldflags)
+%C%_a_la_LIBADD           = $(npttreplugin_libadd)
+
+%C%_a_la_CFLAGS          += $(ADD_CFLAGS)
+%C%_a_la_CPPFLAGS        += $(ADD_CPPFLAGS)
+%C%_a_la_LDFLAGS         += $(ADD_LDFLAGS)
+
+npttreplugin_LTLIBRARIES += %D%/b.la
+%C%_b_la_SOURCES          = %D%/plugin-b.c
+%C%_b_la_CFLAGS           =
+%C%_b_la_CPPFLAGS         = $(npttreplugin_cppflags)
+%C%_b_la_DEPENDENCIES     = $(npttreplugin_dependencies)
+%C%_b_la_LDFLAGS          = $(npttreplugin_ldflags)
+%C%_b_la_LIBADD           = $(npttreplugin_libadd)
+
+%C%_b_la_CFLAGS          += $(ADD_CFLAGS)
+%C%_b_la_CPPFLAGS        += $(ADD_CPPFLAGS)
+%C%_b_la_LDFLAGS         += $(ADD_LDFLAGS)
+
+npttreplugin_LTLIBRARIES += %D%/c.la
+%C%_c_la_SOURCES          = %D%/plugin-c.c
+%C%_c_la_CFLAGS           =
+%C%_c_la_CPPFLAGS         = $(npttreplugin_cppflags)
+%C%_c_la_DEPENDENCIES     = $(npttreplugin_dependencies)
+%C%_c_la_LDFLAGS          = $(npttreplugin_ldflags)
+%C%_c_la_LIBADD           = $(npttreplugin_libadd)
+
+%C%_c_la_CFLAGS          += $(ADD_CFLAGS)
+%C%_c_la_CPPFLAGS        += $(ADD_CPPFLAGS)
+%C%_c_la_LDFLAGS         += $(ADD_LDFLAGS)

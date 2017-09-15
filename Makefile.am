@@ -47,4 +47,5 @@ include build-helpers/package-version.mk
 
 include libnptone/Makefile-files
 include libnpttwo/Makefile-files
+include libnpttre/Makefile-files
 include src/Makefile-files
