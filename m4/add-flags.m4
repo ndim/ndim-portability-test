@@ -14,34 +14,34 @@ AC_DEFUN([ADD_FLAGS], [dnl
   AC_REQUIRE([ADD_FLAGS_ONCE])
   m4_case([$1],
           [CFLAGS],
-          [saved_CFLAGS="$CFLAGS"
-           CFLAGS="$ADD_CFLAGS $2"
-           AC_MSG_CHECKING([whether compiler accepts flags $2])
-           AC_COMPILE_IFELSE([AC_LANG_SOURCE([char b;])],
-                             [AC_MSG_RESULT([[yes (added to default $1)]])
-                              ADD_CFLAGS="$ADD_CFLAGS $2"],
-                             [AC_MSG_RESULT([[no (not added to default $1)]])])
-           CFLAGS="$saved_CFLAGS"
+          [saved_[$1]="$[$1]"
+           [$1]="$ADD_[$1] $2"
+           AC_MSG_CHECKING([whether compiler accepts flags [$2]])
+           AC_COMPILE_IFELSE([AC_LANG_SOURCE([[int main() { return 0; }]])],
+                             [AC_MSG_RESULT([yes (added to ADD_[$1])])
+                              ADD_[$1]="$ADD_[$1] [$2]"],
+                             [AC_MSG_RESULT([no (not added to ADD_[$1])])])
+           [$1]="$saved_[$1]"
           ],
           [CPPFLAGS],
-          [saved_CPPFLAGS="$CPPFLAGS"
-           CPPFLAGS="$ADD_CPPFLAGS $2"
-           AC_MSG_CHECKING([whether preprocessor accepts flags $2])
-           AC_PREPROC_IFELSE([AC_LANG_SOURCE([char b;])],
-                             [AC_MSG_RESULT([[yes (added to default $1)]])
-  	                      ADD_CPPFLAGS="$ADD_CPPFLAGS $2"],
-                             [AC_MSG_RESULT([[no (not added to default $1)]])])
-           CPPFLAGS="$saved_CPPFLAGS"
+          [saved_[$1]="$[$1]"
+           [$1]="$ADD_[$1] $2"
+           AC_MSG_CHECKING([whether preprocessor accepts flags [$2]])
+           AC_PREPROC_IFELSE([AC_LANG_SOURCE([[int main() { return 0; }]])],
+                             [AC_MSG_RESULT([yes (added to ADD_[$1])])
+	                      ADD_[$1]="$ADD_[$1] [$2]"],
+                             [AC_MSG_RESULT([no (not added to ADD_[$1])])])
+           [$1]="$saved_[$1]"
           ],
           [LDFLAGS],
-          [saved_LDFLAGS="$LDFLAGS"
-           LDFLAGS="$ADD_LDFLAGS $2"
-           AC_MSG_CHECKING([whether linker accepts flags $2])
-           AC_LINK_IFELSE([AC_LANG_SOURCE([char b;])],
-                          [AC_MSG_RESULT([[yes (added to default $1)]])
-                           ADD_LDFLAGS="$ADD_LDFLAGS $2"],
-                          [AC_MSG_RESULT([[no (not added to default $1)]])])
-           LDFLAGS="$saved_LDFLAGS"
+          [saved_[$1]="$[$1]"
+           [$1]="$ADD_[$1] $2"
+           AC_MSG_CHECKING([whether linker accepts flags [$2]])
+           AC_LINK_IFELSE([AC_LANG_SOURCE([[int main() { return 0; }]])],
+                          [AC_MSG_RESULT([yes (added to ADD_[$1])])
+                           ADD_[$1]="$ADD_[$1] $2"],
+                          [AC_MSG_RESULT([no (not added to ADD_[$1])])])
+           [$1]="$saved_[$1]"
           ],
           [m4_fatal([Unhandled flags variable: $1])])dnl
 ])dnl
