@@ -1,9 +1,9 @@
 #ifndef NPTTWO_PLUGIN_API_H
 #define NPTTWO_PLUGIN_API_H
 
-typedef void (*npttwo_func1_type)(void);
-typedef int  (*npttwo_func2_type)(int);
-typedef int  (*npttwo_func3_type)(int);
+typedef void (*npttwo_func1_type)(const char *const prefix);
+typedef int  (*npttwo_func2_type)(const char *const prefix, int);
+typedef int  (*npttwo_func3_type)(const char *const prefix, int);
 
 typedef struct {
   const char *name;

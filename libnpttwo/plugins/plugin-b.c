@@ -4,22 +4,22 @@
 #include "npttwo/plugin-api.h"
 
 static
-void b_func1(void)
+void b_func1(const char *const prefix)
 {
-  printf("plugin b func1\n");
+  printf("%s   plugin b func1\n", prefix);
 }
 
 static
-int b_func2(int x)
+int b_func2(const char *const prefix, int x)
 {
-  printf("plugin b func2\n");
+  printf("%s   plugin b func2\n", prefix);
   return x*x;
 }
 
 static
-int b_func3(int x)
+int b_func3(const char *const prefix, int x)
 {
-  printf("plugin b func3\n");
+  printf("%s   plugin b func3\n", prefix);
   const int y = npttwo_call_from_plugin(x);
   return y*y*y;
 }

@@ -126,36 +126,36 @@ void npttwo_done(void)
 }
 
 
-void LIBNPTTWO0_DLL npttwo_func1(void)
+void LIBNPTTWO0_DLL npttwo_func1(const char *const prefix)
 {
-  printf("Plugin list:\n");
+  printf("Plugin list func1:\n");
   for (size_t i=0; i<used_idx; i++) {
-    printf("%zu. %s\n", i+1, plugins[i]->name);
-    plugins[i]->func1();
+    printf("%s%zu. %s\n", prefix, i+1, plugins[i]->name);
+    plugins[i]->func1(prefix);
   }
 }
 
 
-void LIBNPTTWO0_DLL npttwo_func2(void)
+void LIBNPTTWO0_DLL npttwo_func2(const char *const prefix)
 {
-  printf("Plugin list:\n");
+  printf("Plugin list func2:\n");
   for (size_t i=0; i<used_idx; i++) {
-    printf("%zu. %s\n", i+1, plugins[i]->name);
+    printf("%s%zu. %s\n", prefix, i+1, plugins[i]->name);
     const int v = 5;
-    const int ret = plugins[i]->func2(v);
-    printf("    %d = func2(%d)\n", ret, v);
+    const int ret = plugins[i]->func2(prefix, v);
+    printf("%s   %d = func2(%d)\n", prefix, ret, v);
   }
 }
 
 
-void LIBNPTTWO0_DLL npttwo_func3(void)
+void LIBNPTTWO0_DLL npttwo_func3(const char *const prefix)
 {
-  printf("Plugin list:\n");
+  printf("Plugin list func3:\n");
   for (size_t i=0; i<used_idx; i++) {
-    printf("%zu. %s\n", i+1, plugins[i]->name);
+    printf("%s%zu. %s\n", prefix, i+1, plugins[i]->name);
     const int v = 2;
-    const int ret = plugins[i]->func3(v);
-    printf("    %d = func3(%d)\n", ret, v);
+    const int ret = plugins[i]->func3(prefix, v);
+    printf("%s   %d = func3(%d)\n", prefix, ret, v);
   }
 }
 
