@@ -1,3 +1,6 @@
 #!/bin/sh
 
+NPTTWO_PLUGINS=@abs_plugindir@
+export NPTTWO_PLUGINS
+
 @abs_builddir@/npt-console.exe

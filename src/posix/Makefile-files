@@ -41,7 +41,10 @@ TESTS      += %reldir%/run-npt.sh
 CLEANFILES += %reldir%/run-npt.sh
 %reldir%/run-npt.sh: %reldir%/run-npt.sh.in Makefile
 	$(MKDIR_P) $(@D)
-	$(SUBSTITUTE) -e 's,[@]abs_builddir@,$(abs_builddir)/%reldir%,g' $< > $@
+	$(SUBSTITUTE) \
+		-e 's,[@]abs_plugindir@,$(abs_top_builddir)/libnpttwo/plugins,' \
+		-e 's,[@]abs_builddir@,$(abs_builddir)/%reldir%,g' \
+		$< > $@
 	chmod +x $@
 
 endif
