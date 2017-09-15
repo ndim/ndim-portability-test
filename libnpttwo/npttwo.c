@@ -108,6 +108,8 @@ void npttwo_init(void)
   for (size_t i=0; i<used_idx; i++) {
     printf("  %zu. %s\n", i+1, plugins[i]->name);
   }
+
+  assert(used_idx > 0);
 }
 
 

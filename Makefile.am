@@ -17,6 +17,7 @@ noinst_DATA =
 noinst_PROGRAMS =
 nodist_pkgconfig_DATA =
 pkgconfig_DATA =
+TESTS =
 
 if BUILD_FOR_WINDOWS
 ADD_CFLAGS   += -municode

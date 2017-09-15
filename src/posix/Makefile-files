@@ -36,4 +36,12 @@ bin_PROGRAMS                       += %reldir%/npt
 
 %canon_reldir%_npt_SOURCES         += %reldir%/npt-posix.c
 
+EXTRA_DIST += %reldir%/run-npt.sh.in
+TESTS      += %reldir%/run-npt.sh
+CLEANFILES += %reldir%/run-npt.sh
+%reldir%/run-npt.sh: %reldir%/run-npt.sh.in Makefile
+	$(MKDIR_P) $(@D)
+	$(SUBSTITUTE) -e 's,[@]abs_builddir@,$(abs_builddir)/%reldir%,g' $< > $@
+	chmod +x $@
+
 endif

@@ -118,4 +118,12 @@ AM_INSTALLCHECK_STD_OPTIONS_EXEMPT += %D%/npt-exetype
 %C%_npt_exetype_CPPFLAGS           += $(ADD_CPPFLAGS)
 %C%_npt_exetype_LDFLAGS            += $(ADD_LDFLAGS)
 
+EXTRA_DIST += %reldir%/run-npt-command.sh.in
+TESTS      += %reldir%/run-npt-command.sh
+CLEANFILES += %reldir%/run-npt-command.sh
+%reldir%/run-npt-command.sh: %reldir%/run-npt-command.sh.in Makefile
+	$(MKDIR_P) $(@D)
+	$(SUBSTITUTE) -e 's,[@]abs_builddir@,$(abs_builddir)/%reldir%,g' $< > $@
+	chmod +x $@
+
 endif
