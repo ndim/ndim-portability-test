@@ -49,7 +49,7 @@ foreach_func(const char *filename, lt_ptr data __attribute__((unused)))
   }
   if (!lh) {
     printf("      * cannot load %s: %s\n", filename, lt_dlerror());
-    return 1;
+    return 0;
   }
 
   const lt_dlinfo *info = lt_dlgetinfo(lh);
