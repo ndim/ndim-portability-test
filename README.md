@@ -9,6 +9,22 @@ natively on Linux and cross-compiling with mingw and running with
 Wine.
 
 
+Toolchains
+----------
+
+This package has been written for a Linux system (Fedora 24+) for the
+following three use cases:
+
+  * Build native Linux executable, libraries, plugins with gcc.
+
+  * Build 32bit Windows executable, libs, plugins with i686-w64-mingw32-gcc
+
+  * Build 64bit Windows executable, libs, plugins with x86_64-w64-mingw32-gcc
+
+In an ideal world, the native Linux case works the same on different
+Linux systems, BSD systems, and others (MacOS X?)
+
+
 Usage
 -----
 
