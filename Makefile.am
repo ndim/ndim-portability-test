@@ -19,6 +19,8 @@ nodist_pkgconfig_DATA =
 pkgconfig_DATA =
 TESTS =
 
+EXTRA_DIST += LICENSE
+
 if BUILD_FOR_WINDOWS
 ADD_CFLAGS   += -municode
 ADD_CPPFLAGS += -DNPT_BUILD_FOR_WINDOWS

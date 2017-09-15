@@ -1,4 +1,5 @@
 ndim-portability-test 0.2.x
+  - add LICENSE file with MIT license
 
 ndim-portability-test 0.2
   - build system improvements
