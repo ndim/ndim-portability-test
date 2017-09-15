@@ -1,3 +1,5 @@
+ndim-portability-test 0.2.x
+
 ndim-portability-test 0.2
   - build system improvements
   - split Windows and Linux executable sources
