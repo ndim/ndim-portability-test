@@ -32,8 +32,10 @@ ADD_FLAGS([CFLAGS],   [-std=c11 -pedantic])
 ADD_FLAGS([CFLAGS],   [-Wall])
 ADD_FLAGS([CFLAGS],   [-Wextra])
 ADD_FLAGS([CFLAGS],   [-Werror])
-ADD_FLAGS([CPPFLAGS], [-DFOO=42])
-dnl ADD_FLAGS([LDFLAGS],  [-Wl,-blubb])
+dnl A few test cases for ADD_FLAGS
+dnl ADD_FLAGS([CPPFLAGS], [-DFOO=42])
+dnl ADD_FLAGS([LDFLAGS],  [--defsym=foo=0x123])
+dnl ADD_FLAGS([FOOBAR],   [--foobar])
 
 # Checks for libraries.
 
