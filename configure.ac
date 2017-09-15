@@ -43,12 +43,9 @@ dnl ADD_FLAGS([LDFLAGS],  [-Wl,-blubb])
 
 # Checks for library functions.
 
-build_for_windows=no
-case "${host_os}" in
-     cygwin*|mingw*)
-        build_for_windows=yes
-        ;;
-esac
+AS_CASE(["${host_os}"],
+        [cygwin*|mingw*], [build_for_windows=yes],
+        [build_for_windows=no])
 AM_CONDITIONAL([BUILD_FOR_WINDOWS],
                [test "x$build_for_windows" = "xyes"])
 AM_CONDITIONAL([BUILD_FOR_POSIX],
