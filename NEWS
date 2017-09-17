@@ -1,5 +1,6 @@
 ndim-portability-test 0.2.x
   - add LICENSE file with MIT license
+  - add installcheck target to test the software after installation
 
 ndim-portability-test 0.2
   - build system improvements

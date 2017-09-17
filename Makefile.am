@@ -35,6 +35,7 @@ EXTRA_DIST += GNUmakefile.in
 SUBSTITUTIONS =
 SUBSTITUTIONS += -e 's,[@]exec_prefix@,$(exec_prefix),g'
 SUBSTITUTIONS += -e 's,[@]prefix@,$(prefix),g'
+SUBSTITUTIONS += -e 's,[@]bindir@,$(bindir),g'
 SUBSTITUTIONS += -e 's,[@]libdir@,$(libdir),g'
 SUBSTITUTIONS += -e 's,[@]includedir@,$(includedir),g'
 SUBSTITUTIONS += -e 's,[@]PACKAGE_NAME@,$(PACKAGE_NAME),g'
@@ -43,9 +44,17 @@ SUBSTITUTIONS += -e 's,[@]VERSION@,$(VERSION),g'
 
 SUBSTITUTE = $(SED) $(SUBSTITUTIONS)
 
+INSTALLTESTS =
+
 include build-helpers/package-version.mk
 
 include libnptone/Makefile-files
 include libnpttwo/Makefile-files
 include libnpttre/Makefile-files
 include src/Makefile-files
+
+installcheck-local: $(INSTALLTESTS)
+	@set -ex; for tc in $(INSTALLTESTS); do \
+		echo "Running $$tc"; \
+		env DESTDIR="$(DESTDIR)" "$$tc"; \
+	done
